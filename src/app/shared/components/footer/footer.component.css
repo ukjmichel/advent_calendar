@@ -1,0 +1,12 @@
+:host footer {
+  display: flex;
+  align-items: center;
+  height: 80px;
+  color: var(--primary-gold);
+  background-color: var(--primary-red);
+  padding: 0 10px;
+}
+
+:host span {
+  font-size: 36px;
+}

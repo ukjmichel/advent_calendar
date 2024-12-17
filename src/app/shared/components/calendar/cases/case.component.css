@@ -1,0 +1,39 @@
+:host {
+  display: flex;
+  height: 100%;
+  width: 100%;
+}
+
+div {
+  display: flex;
+  height: calc(80% - 20px);
+  width: 80%;
+  border-radius: 8px; /* Coins arrondis */
+  padding: 10px;
+  margin: auto;
+  font-size: 48px;
+}
+
+.closed {
+  align-items: end;
+  justify-content: end;
+
+  background-color: rgba(0, 0, 0, 0.3); /* Fond semi-transparent */
+  border: solid 2px white;
+  color: white;
+}
+
+.opened {
+  align-items: end;
+  justify-content: end;
+  background-color: rgba(0, 0, 0, 0.3); /* Fond semi-transparent */
+  color: #dddd;
+}
+
+.empty {
+  align-items: center;
+  justify-content: center;
+
+  background-color: rgba(0, 0, 0, 0.5); /* Fond semi-transparent */
+  color: white;
+}

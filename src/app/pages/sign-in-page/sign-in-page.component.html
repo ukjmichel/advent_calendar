@@ -1,0 +1,9 @@
+<app-layout>
+  <div>
+    @if(asAccount()){
+    <app-sign-in-form />
+    } @if(!asAccount()){
+    <app-sign-up-form />
+    }
+  </div>
+</app-layout>

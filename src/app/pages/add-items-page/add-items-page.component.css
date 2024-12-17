@@ -1,0 +1,7 @@
+section {
+  height: 100%; /* Full viewport height */
+  width: 300vw; /* 3 times the viewport width */
+  overflow-y: hidden;
+}
+
+

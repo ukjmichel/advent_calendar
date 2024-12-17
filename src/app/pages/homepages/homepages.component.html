@@ -1,0 +1,39 @@
+<app-navbar></app-navbar>
+<section class="hero">
+  <img src="assets/logo/logo.svg" alt="logo" />
+</section>
+<section class="about">
+  <div class="title-case">
+    <span></span>
+    <h1>A&nbsp;propos</h1>
+    <span></span>
+  </div>
+  <article>
+    <p>Bienvenue</p>
+    <p>
+      Je suis Michel de la boutique Osez-Noël. Partageons ensemble l’esprit de
+      Noël en offrant à vos proches un calendrier de l’avent virtuel.
+    </p>
+  </article>
+  <div class="separation-block">
+    <img src="assets/icons/tree.svg" alt="tree" />
+  </div>
+  <article>
+    <p>Choisissez parmi un large choix de calendriers</p>
+    <div class="calendars-container">
+      <!-- Générer les calendriers avec des backgrounds différents -->
+      <ng-container *ngFor="let background of calendarBackgrounds">
+        <app-calendar-sm [background]="background"></app-calendar-sm>
+      </ng-container>
+    </div>
+  </article>
+</section>
+<section class="contact">
+  <h1>Nous Suivre</h1>
+  <div class="social-links">
+    <img src="assets/social_icons/facebook.svg" alt="facebook" />
+    <img src="assets/social_icons/instagram.svg" alt="instagram" />
+    <img src="assets/social_icons/tiktok.svg" alt="tiktok" />
+  </div>
+</section>
+<app-footer></app-footer>

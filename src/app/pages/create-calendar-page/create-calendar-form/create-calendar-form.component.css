@@ -1,0 +1,28 @@
+form {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 10px;
+  font-size: 24px;
+  color: var(--secondary-gold);
+}
+
+div {
+  display: flex;
+  flex-direction: column;
+  width: 80vw;
+}
+
+input,
+select {
+  height: 30px;
+}
+
+textarea {
+  height: 140px;
+}
+
+input,
+textarea {
+  padding: 0 5px;
+}

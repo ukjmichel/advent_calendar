@@ -1,0 +1,11 @@
+:host main {
+  height: calc(100vh - 160px);
+  overflow: scroll;
+}
+
+header {
+  margin: 20px 10px;
+  display: flex;
+  justify-content: space-between;
+  color: var(--secondary-gold);
+}

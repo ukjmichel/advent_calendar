@@ -1,0 +1,51 @@
+:host {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+/* Styles pour le titre */
+:host h1 {
+  color: var(--secondary-gold);
+  font-size: 36px;
+}
+:host p {
+  font-size: 20px;
+}
+
+/* Styles pour le formulaire */
+:host form {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  width: 260px;
+  font-size: 36px;
+  gap: 20px;
+  background-color: var(--primary-gold);
+  padding: 40px;
+  border-radius: 20px;
+  color: var(--secondary-gold);
+}
+
+/* Styles pour les divs dans le formulaire */
+:host form div {
+  display: flex;
+  flex-direction: column;
+}
+
+/* Styles pour les champs de saisie */
+:host form input {
+  font-size: 28px;
+  border-radius: 2px;
+  width: 300px;
+}
+
+/* Styles pour le bouton */
+:host button {
+  width: 200px;
+  height: 40px;
+  background-color: var(--primary-red);
+  color: var(--primary-gold);
+  font-size: 20px;
+  border-radius: 20px;
+}

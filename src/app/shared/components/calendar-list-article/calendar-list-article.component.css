@@ -1,0 +1,27 @@
+article {
+  height: 80%;
+  display: grid;
+  grid-template-rows: 1fr 1fr;
+  justify-content: center;
+  gap: 10px;
+  color: var(--secondary-gold);
+}
+article app-calendar-sm {
+  margin: auto;
+}
+
+.message {
+  padding: 0 20px;
+}
+
+.message h2 {
+  margin: 10px 0;
+}
+
+.message div {
+  height: 50%;
+  border: solid 3px var(--secondary-gold);
+  border-radius: 20px;
+  font-size: 24px;
+  padding: 10px;
+}

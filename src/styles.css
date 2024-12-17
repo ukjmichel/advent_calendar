@@ -1,1 +1,66 @@
 /* You can add global styles to this file, and also import other style files */
+/* Regular font */
+@font-face {
+  font-family: "OldStandardTT";
+  src: url("assets/fonts/Old_Standard_TT/OldStandardTT-Regular.ttf")
+    format("truetype");
+  font-weight: normal;
+  font-style: normal;
+}
+
+/* Italic font */
+@font-face {
+  font-family: "OldStandardTT";
+  src: url("assets/fonts/Old_Standard_TT/OldStandardTT-Italic.ttf")
+    format("truetype");
+  font-weight: normal;
+  font-style: italic;
+}
+
+/* Bold font */
+@font-face {
+  font-family: "OldStandardTT";
+  src: url("assets/fonts/Old_Standard_TT/OldStandardTT-Bold.ttf")
+    format("truetype");
+  font-weight: bold;
+  font-style: normal;
+}
+
+:root {
+  --primary-red: #b73e43;
+  --primary-gold: #e7cd78;
+  --secondary-gold: #7e681e;
+}
+
+/* Regular font */
+@font-face {
+  font-family: "OldStandardTT";
+  src: url("assets/fonts/Old_Standard_TT/OldStandardTT-Regular.ttf")
+    format("truetype");
+  font-weight: normal;
+  font-style: normal;
+}
+
+/* Italic font */
+@font-face {
+  font-family: "OldStandardTT";
+  src: url("assets/fonts/Old_Standard_TT/OldStandardTT-Italic.ttf")
+    format("truetype");
+  font-weight: normal;
+  font-style: italic;
+}
+
+/* Bold font */
+@font-face {
+  font-family: "OldStandardTT";
+  src: url("assets/fonts/Old_Standard_TT/OldStandardTT-Bold.ttf")
+    format("truetype");
+  font-weight: bold;
+  font-style: normal;
+}
+
+* {
+  padding: 0;
+  margin: 0;
+  font-family: "OldStandartTT";
+}

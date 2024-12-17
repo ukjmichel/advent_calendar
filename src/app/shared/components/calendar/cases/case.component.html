@@ -1,0 +1,4 @@
+<div [class]="caseState()">
+  @if(caseState()==="closed"||"opened") { #{{ caseNumber().toString().padStart(2, "0") }}
+  } @if(caseState()==="empty"){ + }
+</div>
