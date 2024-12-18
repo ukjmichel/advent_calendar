@@ -1,18 +1,56 @@
-:host nav {
+.navbar {
+  background-color: var(--primary-red);
+  width: 100vw;
+}
+
+nav {
   display: flex;
   justify-content: space-between;
   align-items: center;
   padding: 0 10px;
   background-color: var(--primary-red);
   height: 80px;
+  max-width: 1280px;
+  margin: auto;
 }
 
-:host nav img {
+nav img {
   height: 40px;
   width: 40px;
 }
 
-:host .nav-logo-links {
+.nav-logo-links {
   display: flex;
   gap: 10px;
+}
+
+.nav-links {
+  display: none;
+}
+
+@media screen and (min-width: 1280px) {
+  nav {
+    justify-content: end;
+  }
+  .hamburger {
+    display: none;
+  }
+  .nav-logo-links {
+    display: none;
+  }
+  .nav-links {
+    display: flex;
+    color: var(--primary-gold);
+    font-size: 24px;
+    font-family: "Inter";
+  }
+  .nav-links ul {
+    display: flex;
+    gap: 20px;
+    list-style-type: none;
+  }
+
+  .nav-links li {
+    font-family: "Inter";
+  }
 }

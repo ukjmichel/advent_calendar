@@ -1,0 +1,39 @@
+form,
+div {
+  display: flex;
+  flex-direction: column;
+}
+
+form {
+  margin: auto;
+}
+
+form div {
+  margin: 20px 0;
+}
+
+label {
+  font-size: 24px;
+  font-family: "Inter";
+}
+
+input {
+  height: 30px;
+  border-radius: 3px;
+}
+
+input,
+textarea {
+  max-width: 500px;
+}
+button {
+  margin: auto;
+  height: 40px;
+  width: 200px;
+  border-radius: 20px;
+  background-color: whithe;
+  border: solid 2px var(--secondary-gold);
+  font-size: 24px;
+  font-family: "inter";
+  color: var(--secondary-gold);
+}

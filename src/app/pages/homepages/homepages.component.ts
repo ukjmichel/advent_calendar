@@ -3,6 +3,7 @@ import { CommonModule } from '@angular/common';
 import { NavbarComponent } from '../../shared/components/navbar/navbar.component';
 import { FooterComponent } from '../../shared/components/footer/footer.component';
 import { CalendarSmComponent } from '../../shared/components/calendar/calendar-sm/calendar-sm.component';
+import { ContactFormComponent } from "./contact-form/contact-form.component";
 
 @Component({
   selector: 'app-homepages',
@@ -12,7 +13,8 @@ import { CalendarSmComponent } from '../../shared/components/calendar/calendar-s
     NavbarComponent,
     FooterComponent,
     CalendarSmComponent,
-  ],
+    ContactFormComponent
+],
   templateUrl: './homepages.component.html',
   styleUrl: './homepages.component.css',
 })

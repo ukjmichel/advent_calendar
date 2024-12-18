@@ -1,10 +1,9 @@
 <app-layout [headerIcon]="headerIcon" [headerTitle]="headerTitle">
-
-  <app-calendar-list-article
-    [background]="'assets/images/alley.png'"
-    [sender]="'####'"
-    [message]="
-      'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor'
-    "
-  />
+  <section>
+    @for(calendar of calendars; track calendar.id){
+    <app-calendar-list-article />
+    } @empty {
+    <p>There are no items.</p>
+    }
+  </section>
 </app-layout>

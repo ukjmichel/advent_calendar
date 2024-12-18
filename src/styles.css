@@ -59,8 +59,18 @@
   font-style: normal;
 }
 
+@font-face {
+  font-family: "Inter";
+  src: url("assets/fonts/Inter/Inter-VariableFont_opsz,wght.ttf")
+    format("truetype");
+  font-style: normal; /* Default style */
+  font-weight: normal; /* Default weight */
+  font-display: swap; /* Improves loading performance */
+}
+
 * {
   padding: 0;
   margin: 0;
   font-family: "OldStandartTT";
+  scrollbar-width: none;
 }

@@ -12,6 +12,8 @@ article app-calendar-sm {
 
 .message {
   padding: 0 20px;
+  max-width: 350px;
+
 }
 
 .message h2 {
@@ -24,4 +26,6 @@ article app-calendar-sm {
   border-radius: 20px;
   font-size: 24px;
   padding: 10px;
+    overflow: scroll;
 }
+

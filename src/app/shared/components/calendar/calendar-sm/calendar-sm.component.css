@@ -1,5 +1,5 @@
 /* Conteneur principal pour les calendriers */
-:host .calendars-container {
+.calendars-container {
   display: flex;
   flex-wrap: wrap;
   justify-content: center;
@@ -8,12 +8,15 @@
 }
 
 /* Style pour chaque calendrier */
-:host .calendar {
+.calendar {
   display: grid;
   grid-template-columns: repeat(6, 1fr); /* 6 colonnes égales */
   grid-template-rows: repeat(4, 1fr); /* 4 lignes égales */
-  width: 340px; /* Largeur du calendrier */
-  height: 250px; /* Hauteur du calendrier */
+  /* Largeur du calendrier */
+  width: 80vw;
+  max-width: 340px;
+  /* Hauteur du calendrier */
+  aspect-ratio: 4 / 3;
   background-size: cover; /* Ajuste l'image au calendrier */
   background-position: center;
   border-radius: 10px; /* Coins arrondis */
@@ -23,7 +26,7 @@
 }
 
 /* Style pour chaque case */
-:host .case {
+.case {
   border: 2px solid white; /* Bordure blanche */
   border-radius: 8px; /* Coins arrondis */
   display: flex;
@@ -34,4 +37,3 @@
   font-weight: bold;
   font-size: 16px;
 }
-

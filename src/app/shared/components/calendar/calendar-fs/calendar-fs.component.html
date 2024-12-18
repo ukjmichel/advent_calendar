@@ -4,6 +4,6 @@
     *ngFor="let caseNumber of cases; let i = index"
     [caseNumber]="caseNumber"
     [caseState]="caseStates[i]()"
-    (click)="opencase(i)"
+    (click)="onClick(i)"
   />
 </div>

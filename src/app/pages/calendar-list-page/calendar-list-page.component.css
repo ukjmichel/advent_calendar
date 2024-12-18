@@ -1,1 +1,12 @@
-
+@media screen and (min-width: 960px) {
+  section {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+@media screen and (min-width: 1280px) {
+  section {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+  }
+}

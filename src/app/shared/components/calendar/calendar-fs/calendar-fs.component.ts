@@ -16,7 +16,16 @@ export class CalendarFsComponent {
   );
   background = input<string>('assets/images/alley.png');
 
-  opencase(index: number) {
-    this.caseStates[index].set('opened');
+  onClick(index: number) {
+    switch (this.caseStates[index]()) {
+      case 'closed':
+        this.caseStates[index].set('opened');
+        break;
+      case 'opened':
+        this.caseStates[index].set('closed');
+        break;
+      default:
+        break;
+    }
   }
 }

@@ -16,10 +16,18 @@
     </p>
   </article>
   <div class="separation-block">
-    <img src="assets/icons/tree.svg" alt="tree" />
+    <img src="assets/icons/tree_gold.svg" alt="tree" />
   </div>
+  <div class="title-case">
+    <span></span>
+    <h1>Choisissez&nbsp;votre&nbsp;calendrier</h1>
+    <span></span>
+  </div>
+
   <article>
-    <p>Choisissez parmi un large choix de calendriers</p>
+    <p class="calendars-container-title">
+      Choisissez parmi un large choix de calendriers
+    </p>
     <div class="calendars-container">
       <!-- Générer les calendriers avec des backgrounds différents -->
       <ng-container *ngFor="let background of calendarBackgrounds">
@@ -29,11 +37,34 @@
   </article>
 </section>
 <section class="contact">
-  <h1>Nous Suivre</h1>
-  <div class="social-links">
-    <img src="assets/social_icons/facebook.svg" alt="facebook" />
-    <img src="assets/social_icons/instagram.svg" alt="instagram" />
-    <img src="assets/social_icons/tiktok.svg" alt="tiktok" />
+  
+  <div>
+    <div class="contact-section">
+      <h1>Nous Contacter</h1>
+      <app-contact-form />
+    </div>
+
+    <div class="contact-section">
+      <h1>Nous Suivre</h1>
+      <div class="social-links">
+        <div>
+          <img src="assets/social_icons/facebook.svg" alt="facebook" /><span
+            >Facebook</span
+          >
+        </div>
+        <div>
+          <img src="assets/social_icons/instagram.svg" alt="instagram" /><span
+            >Instagram</span
+          >
+        </div>
+        <div>
+          <img src="assets/social_icons/tiktok.svg" alt="tiktok" /><span
+            >TikTok</span
+          >
+        </div>
+      </div>
+    </div>
   </div>
+  
 </section>
 <app-footer></app-footer>

@@ -1,4 +1,6 @@
 /* Style pour chaque calendrier */
+
+
 .calendar {
   display: grid;
   align-items: center;
@@ -10,4 +12,6 @@
   background-size: cover; /* Ajuste l'image au calendrier */
   background-position: center;
   gap: 10px; /* Espacement entre les cases */
+  max-width: 1280px;
 }
+

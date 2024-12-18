@@ -1,6 +1,20 @@
-:host div {
+section {
   height: 100%;
   display: flex;
   justify-content: center;
-  align-items: center;
+}
+
+div {
+  height: 100%;
+  padding-top: clamp(0px, 20%, 150px);
+}
+
+@media screen and (min-width: 1280px) {
+  section {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+  }
+  div:last-of-type {
+    background-color: var(--primary-gold);
+  }
 }
