@@ -1,7 +1,7 @@
 form {
   display: flex;
   flex-direction: column;
-  align-items: center;
+  justify-content: center;
   gap: 10px;
   font-size: 24px;
   color: var(--secondary-gold);
@@ -10,7 +10,14 @@ form {
 div {
   display: flex;
   flex-direction: column;
-  width: 80vw;
+}
+
+input,
+select,
+textarea,
+label {
+  width: 100%;
+  max-width: 340px;
 }
 
 input,
@@ -22,7 +29,16 @@ textarea {
   height: 140px;
 }
 
-input,
-textarea {
-  padding: 0 5px;
+button {
+  font-size: 24px;
+  font-family: "Inter";
+  margin: auto;
+  width: 150px;
+  padding: 5px 0;
+  border-radius: 10px;
+  background-color: var(--primary-gold);
+}
+
+.active {
+  color: var(--secondary-gold);
 }

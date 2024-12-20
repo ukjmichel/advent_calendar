@@ -1,13 +1,44 @@
-<app-layout [headerIcon]="headerIcon" [headerTitle]="headerTitle">
+<app-layout>
   <section>
-    @for(calendar of calendars; track calendar.id){
-    <app-calendar-list-article
-      [background]="calendar.background"
-      [sender]="calendar.sender"
-      [message]="calendar.message"
-    />
-    } @empty {
-    <p>There are no items.</p>
-    }
+    <h1>Mes Calendrier</h1>
+    <div>
+      @for(calendar of displayedCalendars(); track calendar.id){
+
+      <app-calendar-list-article
+        [background]="calendar.background"
+        [sender]="calendar.sender"
+        [message]="calendar.message"
+        [routerLink]="['/calendar', calendar.id]"
+      />
+
+      } @empty {
+      <p>There are no items.</p>
+      }
+    </div>
+    <div>
+      <button (click)="prevCalendars()">prev</button
+      ><button (click)="nextCalendars()">next</button>
+    </div>
+  </section>
+  <section>
+    <h1>Mes Créations</h1>
+    <div>
+      @for(calendar of displayedCalendars(); track calendar.id){
+
+      <app-calendar-list-article
+        [background]="calendar.background"
+        [sender]="calendar.sender"
+        [message]="calendar.message"
+        [routerLink]="['/calendar', calendar.id]"
+      />
+
+      } @empty {
+      <p>There are no items.</p>
+      }
+    </div>
+    <div>
+      <button (click)="prevCalendars()">prev</button
+      ><button (click)="nextCalendars()">next</button>
+    </div>
   </section>
 </app-layout>

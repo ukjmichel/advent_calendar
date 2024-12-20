@@ -2,29 +2,41 @@
   @if(isConnected()===false){
   <nav>
     <img src="assets/icons/hamburger.svg" alt="Menu" class="hamburger" />
-    <img
-      src="assets/icons/user_profile.svg"
-      alt="Menu"
-      class="nav-logo-links"
-    />
-    <span class="nav-links">Connection</span>
+    <div
+      [routerLink]="['/sign']"
+      class="nav-links"
+      routerLinkActive="router-link-active"
+    >
+      <img src="assets/icons/user_profile.svg" alt="Menu" />
+      <span>Connection</span>
+    </div>
   </nav>
   } @if(isConnected()===true){
   <nav>
     <img src="assets/icons/hamburger.svg" alt="Menu" class="hamburger" />
-    <div class="nav-logo-links">
-      <img src="assets/icons/chrismas_ball.svg" alt="Menu" class="hamburger" />
-      <img src="assets/icons/ribbon.svg" alt="Menu" class="hamburger" />
-      <img src="assets/icons/plus.svg" alt="Menu" class="hamburger" />
-      <img src="assets/icons/user_check.svg" alt="Menu" class="hamburger" />
-    </div>
     <div class="nav-links">
       <ul>
-        <li>Acceuil</li>
-        <li>Création</li>
-        <li>Calendrier</li>
-        <li>Profile</li>
-        <li>Connection</li>
+        <li routerLink="/">
+          <img src="assets/icons/home-page.svg" alt="/home" /><span
+            >Acceuil</span
+          >
+        </li>
+        <li routerLink="/calendar-list">
+          <img
+            src="assets/icons/chrismas_ball.svg"
+            alt="chrismas-ball icon"
+          /><span>Calendrier</span>
+        </li>
+        <li routerLink="/new-calendar">
+          <img src="assets/icons/plus.svg" alt="plus icon" /><span
+            >Création</span
+          >
+        </li>
+        <li>
+          <img src="assets/icons/user_check.svg" alt="Menu" /><span
+            >Profile</span
+          >
+        </li>
       </ul>
     </div>
   </nav>

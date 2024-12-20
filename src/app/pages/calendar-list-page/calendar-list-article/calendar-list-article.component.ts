@@ -1,5 +1,5 @@
 import { Component, input } from '@angular/core';
-import { CalendarSmComponent } from '../calendar/calendar-sm/calendar-sm.component';
+import { CalendarSmComponent } from '../../../shared/components/calendar/calendar-sm/calendar-sm.component';
 
 @Component({
   selector: 'app-calendar-list-article',

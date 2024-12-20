@@ -19,12 +19,13 @@ nav img {
   width: 40px;
 }
 
-.nav-logo-links {
+.nav-links ul {
   display: flex;
-  gap: 10px;
+  gap: 20px;
+  list-style-type: none;
 }
 
-.nav-links {
+.nav-links span {
   display: none;
 }
 
@@ -35,22 +36,14 @@ nav img {
   .hamburger {
     display: none;
   }
-  .nav-logo-links {
+  .nav-links img {
     display: none;
   }
-  .nav-links {
+
+  .nav-links span {
     display: flex;
     color: var(--primary-gold);
     font-size: 24px;
-    font-family: "Inter";
-  }
-  .nav-links ul {
-    display: flex;
-    gap: 20px;
-    list-style-type: none;
-  }
-
-  .nav-links li {
     font-family: "Inter";
   }
 }

@@ -2,11 +2,10 @@
   <!-- Theme Input -->
   <div>
     <label for="theme">theme</label>
-    <select id="theme" name="theme">
-      <option value="" disabled selected>Selectionner un thème</option>
-      <option value="theme1">Theme 1</option>
-      <option value="theme2">Theme 2</option>
-      <option value="theme3">Theme 3</option>
+    <select id="theme" name="theme" (change)="onThemeSelect($event)">
+      @for(theme of themeOptions(); track theme.name){
+      <option [value]="theme.path">{{ theme.name }}</option>
+      }
     </select>
   </div>
   <!-- Email Input -->
@@ -17,6 +16,7 @@
       id="destinataire"
       name="destinataire"
       placeholder="Entrer l'email du destinataire"
+      [(ngModel)]="email"
     />
   </div>
 
@@ -31,4 +31,7 @@
       cols="50"
     ></textarea>
   </div>
+  <button [disabled]="!isFormValid()" [class.active]="isFormValid()">
+    Valider
+  </button>
 </form>
