@@ -1,4 +1,4 @@
-import { Component, input, signal } from '@angular/core';
+import { Component, input, output, signal } from '@angular/core';
 
 @Component({
   selector: 'app-case',
@@ -8,6 +8,13 @@ import { Component, input, signal } from '@angular/core';
   styleUrl: './case.component.css',
 })
 export class DefaultCaseComponent {
-  caseNumber = input<number>(0);
+  caseNumber = input<number | string>(0);
   caseState = input<'closed' | 'opened' | 'empty'>('empty');
+  caseOpened = output();
+
+  openCase() {
+    if (this.caseState() === 'closed') {
+      this.caseOpened.emit();
+    }
+  }
 }

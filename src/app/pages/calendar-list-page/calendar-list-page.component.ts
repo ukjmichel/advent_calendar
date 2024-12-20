@@ -1,16 +1,9 @@
-import {
-  Component,
-  HostListener,
-  inject,
-  input,
-  OnInit,
-  signal,
-} from '@angular/core';
+import { Component, HostListener, inject, OnInit, signal } from '@angular/core';
 import { CalendarSmComponent } from '../../shared/components/calendar/calendar-sm/calendar-sm.component';
 import { LayoutComponent } from '../../core/layout/layout.component';
 
 import { RouterLink } from '@angular/router';
-import { CalendarListService } from './calendar-list.service';
+import { CalendarListService } from '../../services/calendar-list.service';
 import { ScreenSizeService } from '../../services/screen-size.service';
 import { CalendarListArticleComponent } from './calendar-list-article/calendar-list-article.component';
 
@@ -19,13 +12,15 @@ interface Calendar {
   background: string;
   sender: string;
   message: string;
+  cases: { id: string; state: 'closed' | 'opened' }[];
 }
+
 @Component({
   selector: 'app-calendar-list-page',
   standalone: true,
   imports: [LayoutComponent, RouterLink, CalendarListArticleComponent],
   templateUrl: './calendar-list-page.component.html',
-  styleUrl: './calendar-list-page.component.css',
+  styleUrls: ['./calendar-list-page.component.css'],
 })
 export class CalendarListPageComponent implements OnInit {
   headerIcon = 'assets/icons/chrismas_ball_gold.svg';
@@ -33,42 +28,58 @@ export class CalendarListPageComponent implements OnInit {
   calendars = inject(CalendarListService).calendars;
   screenWidth = inject(ScreenSizeService).screenWidth;
   displayedCalendars = signal<Calendar[]>([]);
-  page = 0;
+  displayedCreations = signal<Calendar[]>([]);
+  calendarsPage = 0;
+  creationsPage = 0;
   itemsPerPage = 1;
 
   ngOnInit(): void {
-    this.updateDisplayedCalendars();
+    this.updateDisplay('calendars');
+    this.updateDisplay('creations');
   }
 
   @HostListener('window:resize', ['$event'])
   onResize(event: Event): void {
-    this.updateDisplayedCalendars(); // Recalculate displayed calendars
+    this.updateDisplay('calendars');
+    this.updateDisplay('creations');
   }
 
-  nextCalendars(): void {
+  nextPage(type: 'calendars' | 'creations'): void {
     const totalPages = Math.ceil(this.calendars.length / this.itemsPerPage);
-    this.page = (this.page + 1) % totalPages; // Wrap around to the first page
-    this.updateDisplayedCalendars();
+    if (type === 'calendars') {
+      this.calendarsPage = (this.calendarsPage + 1) % totalPages;
+    } else {
+      this.creationsPage = (this.creationsPage + 1) % totalPages;
+    }
+    this.updateDisplay(type);
   }
 
-  prevCalendars(): void {
+  prevPage(type: 'calendars' | 'creations'): void {
     const totalPages = Math.ceil(this.calendars.length / this.itemsPerPage);
-    this.page = (this.page - 1 + totalPages) % totalPages; // Wrap around to the last page
-    this.updateDisplayedCalendars();
+    if (type === 'calendars') {
+      this.calendarsPage = (this.calendarsPage - 1 + totalPages) % totalPages;
+    } else {
+      this.creationsPage = (this.creationsPage - 1 + totalPages) % totalPages;
+    }
+    this.updateDisplay(type);
   }
 
-  updateDisplayedCalendars(): void {
+  updateDisplay(type: 'calendars' | 'creations'): void {
     // Determine items per page based on screen width
     if (this.screenWidth() < 960) {
-      this.itemsPerPage = 1; // Display 1 item per page for small screens
+      this.itemsPerPage = 1;
     } else if (this.screenWidth() < 1280) {
-      this.itemsPerPage = 2; // Display 2 items per page for medium screens
+      this.itemsPerPage = 2;
     } else {
-      this.itemsPerPage = 3; // Display 3 items per page for larger screens
+      this.itemsPerPage = 3;
     }
 
-    const start = this.page * this.itemsPerPage;
+    const page = type === 'calendars' ? this.calendarsPage : this.creationsPage;
+    const start = page * this.itemsPerPage;
     const end = start + this.itemsPerPage;
-    this.displayedCalendars.set(this.calendars.slice(start, end)); // Update displayed calendars
+
+    const targetSignal =
+      type === 'calendars' ? this.displayedCalendars : this.displayedCreations;
+    targetSignal.set(this.calendars.slice(start, end));
   }
 }

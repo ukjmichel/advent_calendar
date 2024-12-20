@@ -1,9 +1,9 @@
 <div class="calendar" [style.backgroundImage]="'url(' + background() + ')'">
   <!-- Générer les cases pour chaque calendrier -->
   <app-case
-    *ngFor="let caseNumber of cases; let i = index"
-    [caseNumber]="caseNumber"
-    [caseState]="caseStates[i]()"
-    (click)="onClick(i)"
+    *ngFor="let case of cases(); let i = index"
+    [caseNumber]="case.id"
+    [caseState]="case.state"
+    (caseOpened)="openCase(case.id)"
   />
 </div>
