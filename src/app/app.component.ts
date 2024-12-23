@@ -1,5 +1,6 @@
-import { Component } from '@angular/core';
+import { Component, inject } from '@angular/core';
 import { RouterOutlet } from '@angular/router';
+import { AuthenticationService } from './services/authentication.service';
 
 @Component({
   selector: 'app-root',
@@ -10,4 +11,14 @@ import { RouterOutlet } from '@angular/router';
 })
 export class AppComponent {
   title = 'advent_calendar';
+
+  private authService = inject(AuthenticationService);
+
+  constructor() {
+    // Initialize authentication state
+    const token = localStorage.getItem('auth_token');
+    if (token) {
+      this.authService.isAuthenticatedSignal.set(true);
+    }
+  }
 }

@@ -1,40 +1,62 @@
 <div class="navbar">
-  @if(isConnected()===false){
   <nav>
-    <img src="assets/icons/hamburger.svg" alt="Menu" class="hamburger" />
-    <div [routerLink]="'/sign'" class="nav-links">
-      <img src="assets/icons/user_profile.svg" alt="Menu" />
-      <span>Connection</span>
-    </div>
-  </nav>
-  } @if(isConnected()===true){
-  <nav>
-    <img src="assets/icons/hamburger.svg" alt="Menu" class="hamburger" />
-    <div class="nav-links">
+    <!-- Hamburger Icon -->
+    <img
+      src="assets/icons/hamburger.svg"
+      alt="Menu"
+      class="hamburger"
+      (click)="toggleSidebar()"
+    />
+
+    <!-- Sidebar Menu -->
+    <div class="nav-links" [class.open]="isSidebarOpen">
+      <!-- Close Button -->
+      <span class="close-btn" (click)="toggleSidebar()">×</span>
+
+      <!-- Navigation Links -->
+      @if(isAuthenticated()===false){
+      <div [routerLink]="'/sign'">
+        <ul>
+          @if(!isRouteActive("/")){
+          <li [routerLink]="'/'">
+            <img src="assets/icons/home-page.svg" alt="/home" /><span
+              >Accueil</span
+            >
+          </li>
+          } @if(!isRouteActive("/sign")){
+          <li>
+            <img src="assets/icons/user_profile.svg" alt="Menu" />
+            <span>Connection</span>
+          </li>
+          }
+        </ul>
+      </div>
+      } @if(isAuthenticated()===true){
       <ul>
         <li [routerLink]="'/'">
           <img src="assets/icons/home-page.svg" alt="/home" /><span
-            >Acceuil</span
+            >Accueil</span
           >
         </li>
         <li [routerLink]="'/calendar-list'">
-          <img
-            src="assets/icons/chrismas_ball.svg"
-            alt="chrismas-ball icon"
-          /><span>Calendrier</span>
-        </li>
-        <li [routerLink]="'/new-calendar'">
-          <img src="assets/icons/plus.svg" alt="plus icon" /><span
-            >Création</span
+          <img src="assets/icons/chrismas_ball.svg" alt="Christmas ball" /><span
+            >Calendrier</span
           >
         </li>
-        <li>
-          <img src="assets/icons/user_check.svg" alt="Menu" /><span
+        <li [routerLink]="'/new-calendar'">
+          <img src="assets/icons/plus.svg" alt="Plus" /><span>Création</span>
+        </li>
+        <li [routerLink]="'/user'">
+          <img src="assets/icons/user_check.svg" alt="User" /><span
             >Profile</span
           >
         </li>
+        <li (click)="logout()">
+          <img src="assets/icons/user_delete.svg" alt="Logout" />
+          <span>Déconnexion</span>
+        </li>
       </ul>
+      }
     </div>
   </nav>
-  }
 </div>

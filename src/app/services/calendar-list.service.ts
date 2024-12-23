@@ -115,7 +115,7 @@ export class CalendarListService {
     {
       id: '4',
       background: 'assets/images/alley.png',
-      sender: 'john',
+      sender: 'frederic',
       message:
         'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor',
       cases: [
@@ -148,7 +148,7 @@ export class CalendarListService {
     {
       id: '5',
       background: 'assets/images/morning-light.jpg',
-      sender: 'susan',
+      sender: 'alan',
       message:
         'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor',
       cases: [
@@ -181,7 +181,7 @@ export class CalendarListService {
     {
       id: '6',
       background: 'assets/images/venise.webp',
-      sender: 'peter',
+      sender: 'bob',
       message:
         'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor',
       cases: [

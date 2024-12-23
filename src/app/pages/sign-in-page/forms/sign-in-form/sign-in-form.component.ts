@@ -1,22 +1,53 @@
 import { Component, inject } from '@angular/core';
-import { SignInPageService } from '../../sign-in-page.service';
-import { RouterLink } from '@angular/router';
-import { AuthService } from '../../../../services/authentication.service';
+import { Router } from '@angular/router';
+import { AuthenticationService } from '../../../../services/authentication.service';
+import { FormsModule } from '@angular/forms';
+import { SignInPageService } from '../../sign-in-service.service';
 
 @Component({
   selector: 'app-sign-in-form',
-  standalone: true,
-  imports: [RouterLink],
   templateUrl: './sign-in-form.component.html',
-  styleUrl: './sign-in-form.component.css',
+  styleUrls: ['./sign-in-form.component.css'],
+  imports: [FormsModule],
+  standalone: true,
 })
 export class SignInFormComponent {
+  formData = {
+    email: '',
+    password: '',
+  };
+
   signService = inject(SignInPageService);
-  authService = inject(AuthService);
-  onClick() {
-    this.authService.login();
+
+  // Use `inject` for AuthenticationService and Router
+  private authService = inject(AuthenticationService);
+  private router = inject(Router);
+
+  /**
+   * Handles form submission using async/await and signals.
+   * Calls the login method in AuthenticationService and navigates to /calendar-list on success.
+   */
+  async onSubmit(form: any): Promise<void> {
+    if (form.valid) {
+      try {
+        await this.authService.login(
+          this.formData.email,
+          this.formData.password
+        );
+        console.log('Login successful');
+      } catch (err: any) {
+        console.error('Login failed:', err.message);
+        alert(err.message || 'Login failed. Please check your credentials.');
+      }
+    } else {
+      alert('Please fill in both email and password fields.');
+    }
   }
-  toggleAsAccount() {
+
+  /**
+   * Toggles between sign-in and sign-up mode.
+   */
+  toggleAsAccount(): void {
     this.signService.toggleAsAccount();
   }
 }

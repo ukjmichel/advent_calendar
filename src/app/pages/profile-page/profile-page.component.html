@@ -1,0 +1,61 @@
+<app-layout>
+  <section>
+    <!-- Title -->
+    <h1>Profil</h1>
+
+    <!-- Form -->
+    <form (ngSubmit)="onSubmit(signUpForm)" #signUpForm="ngForm">
+      <!-- Username Field -->
+      <div>
+        <label for="username">Nom</label>
+        <input
+          type="text"
+          id="username"
+          name="username"
+          [placeholder]="username"
+          [(ngModel)]="formData.username"
+          [readonly]="!isEditing"
+          required
+        />
+      </div>
+
+      <!-- Email Field -->
+      <div>
+        <label for="email">Email</label>
+        <input
+          type="email"
+          id="email"
+          name="email"
+          [placeholder]="email"
+          [(ngModel)]="formData.email"
+          [readonly]="!isEditing"
+          required
+        />
+      </div>
+
+      <!-- Password Field -->
+      <div>
+        <label for="password">Mot de passe</label>
+        <input
+          type="password"
+          id="password"
+          name="password"
+          [(ngModel)]="formData.password"
+          [readonly]="!isEditing"
+          required
+        />
+      </div>
+
+      <!-- Buttons -->
+      <div>
+        <!-- Enable Modification Button -->
+        <button type="button" (click)="enableEdit()" [disabled]="!isEditing">
+          Modifier
+        </button>
+
+
+        <button class="delete-btn" [disabled]="true">Suprimer</button>
+      </div>
+    </form>
+  </section>
+</app-layout>
