@@ -2,6 +2,8 @@
   display: flex;
   height: 100%;
   width: 100%;
+  max-width: 280px;
+  max-height: 280px;
 }
 
 div {
@@ -36,4 +38,13 @@ div {
 
   background-color: rgba(0, 0, 0, 0.5); /* Fond semi-transparent */
   color: white;
+}
+
+.closed:hover {
+  border-color: var(--primary-gold);
+  color: var(--primary-gold);
+}
+
+.opened:hover {
+  color: var(--secondary-gold);
 }

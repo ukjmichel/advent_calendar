@@ -1,12 +1,14 @@
 article {
   display: grid;
   grid-template-rows: 1fr 1fr;
-  justify-content: center;
   gap: 10px;
+  justify-content: center;
   color: var(--secondary-gold);
+  height: 570px;
+  width: 414px;
 }
-article app-calendar-sm {
-  margin: auto;
+div{
+  height: 285px;
 }
 
 .message {

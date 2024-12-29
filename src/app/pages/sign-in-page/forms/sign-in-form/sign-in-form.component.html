@@ -1,8 +1,7 @@
-<!-- Title -->
-<h1>Connectez-vous</h1>
-
 <!-- Form -->
 <form (ngSubmit)="onSubmit(loginForm)" #loginForm="ngForm">
+  <!-- Title -->
+  <h1>Connectez-vous</h1>
   <!-- Email Field -->
   <div>
     <label for="email">Email</label>
@@ -27,10 +26,11 @@
       #password="ngModel"
       required
     />
-
   </div>
 
   <!-- Submit Button -->
   <button type="submit" [disabled]="loginForm.invalid">Se connecter</button>
+  @if(isSmallScreen()){
   <p (click)="toggleAsAccount()">Créer un compte</p>
+  }
 </form>

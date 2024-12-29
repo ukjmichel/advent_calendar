@@ -36,13 +36,10 @@ export class SignInPageComponent implements OnDestroy {
 
     // Reactive effect to handle authentication changes
     effect(() => {
+      console.log('Authentication state changed:', this.isAuthenticated());
       if (this.isAuthenticated()) {
         console.log('User is authenticated. Redirecting to /calendar-list...');
-        this.router.navigate(['/calendar-list']).then((success) => {
-          if (!success) {
-            console.error('Navigation to /calendar-list failed.');
-          }
-        });
+        this.redirectToCalendarList();
       }
     });
   }
@@ -50,6 +47,15 @@ export class SignInPageComponent implements OnDestroy {
   private updateScreenWidth = (): void => {
     this.screenWidth.set(window.innerWidth);
   };
+
+  private async redirectToCalendarList(): Promise<void> {
+    try {
+      await this.router.navigate(['/calendar-list']);
+      console.log('Redirection to /calendar-list successful');
+    } catch (error) {
+      console.error('Navigation to /calendar-list failed:', error);
+    }
+  }
 
   ngOnDestroy(): void {
     window.removeEventListener('resize', this.updateScreenWidth);

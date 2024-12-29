@@ -12,13 +12,20 @@
 
 .about {
   margin-top: 40px;
-  color: var(--secondary-gold);
+  color: rgb(255, 255, 255);
   text-align: center;
-  margin: 2px;
+  background-image: url("../../../assets/images/a_vibrant_and_cozy_winter_1.jpg");
+  background-repeat: no-repeat;
+  background-size: cover;
+  background-position: center;
 }
 
 .about article {
-  border: solid 4px var(--secondary-gold);
+  border-radius: 20px;
+}
+
+.about article {
+  background-color: rgba(0, 0, 0, 0.5);
 }
 
 .title-case {
@@ -26,12 +33,13 @@
   align-items: center;
   width: 100%;
   margin: 10px 0px;
+  background-color: rgba(0, 0, 0, 0.5);
 }
 
 .title-case span {
   width: 100%;
   height: 10px;
-  border: solid 4px var(--secondary-gold);
+  border: solid 4px white;
   margin-top: 15px;
 }
 
@@ -46,7 +54,8 @@
 }
 
 .about {
-  width: 98%;
+  width: calc(100% - 8px);
+  padding: 4px;
   margin: auto;
 }
 .about article {
@@ -71,9 +80,10 @@
 .calendars-container {
   display: flex;
   flex-wrap: wrap;
+  height: 877px;
   justify-content: center;
   gap: 20px; /* Espacement entre les calendriers */
-  padding: 20px;
+  padding: 30px;
 }
 
 /* Style pour chaque calendrier */
@@ -111,7 +121,7 @@
   align-items: center;
   color: var(--primary-gold);
   background-color: var(--primary-red);
-  margin: 50px 0;
+
   padding-top: 10px;
   padding-bottom: 30px;
 }
@@ -126,6 +136,9 @@
   height: 48px;
   gap: 25%;
   margin: 50px 10px;
+}
+.social-links div {
+  cursor: pointer;
 }
 
 .social-links div {
@@ -178,6 +191,11 @@
   .separation-block {
     display: none;
   }
+  .calendars-container {
+    align-items: center;
+    justify-content: center;
+  }
+
   .calendars-container-title {
     display: none;
   }
@@ -200,6 +218,15 @@
   .hero img {
     position: relative;
     right: 200px;
+  }
+  .calendars-container {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    height: 285px;
+    width: 1200px;
+  }
+  .calendar-item {
+    width: 364px;
   }
   .contact > div {
     display: grid;

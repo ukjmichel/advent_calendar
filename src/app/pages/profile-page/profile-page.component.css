@@ -6,14 +6,16 @@ div {
 
 section {
   height: 100%;
-
   align-items: center;
   justify-content: center;
+  background-image: url("../../../assets/images/a_vibrant_and_cozy_winter_0.jpg");
+  background-repeat: no-repeat;
+  background-size: cover;
+
 }
 
 /* Styles pour le titre */
 h1 {
-  color: var(--secondary-gold);
   font-size: 36px;
 }
 p {
@@ -28,10 +30,10 @@ form {
   width: 260px;
   font-size: 36px;
   gap: 20px;
-  background-color: var(--primary-gold);
+  background-color: rgb(0, 0, 0, 0.6);
   padding: 40px;
   border-radius: 20px;
-  color: var(--secondary-gold);
+  color: white;
 }
 
 /* Styles pour les divs dans le formulaire */

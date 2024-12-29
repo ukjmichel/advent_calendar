@@ -5,7 +5,14 @@ section {
 div {
   display: flex;
   justify-content: center;
+
   gap: 20px;
+}
+
+.calendar {
+  display: flex;
+  justify-content: center;
+  align-items: center;
 }
 
 h1 {
@@ -13,6 +20,10 @@ h1 {
   font-size: 34px;
   color: var(--secondary-gold);
   margin: 20px;
+}
+
+button {
+  cursor: pointer;
 }
 
 button {
@@ -25,14 +36,18 @@ button {
 }
 
 @media screen and (min-width: 960px) {
-  section div:first-of-type {
+  .calendars-container {
     display: grid;
+    width: 960px;
     grid-template-columns: repeat(2, 1fr);
+    margin: auto;
   }
 }
 @media screen and (min-width: 1280px) {
-  section div:first-of-type {
+  .calendars-container {
     display: grid;
+    width: 1280px;
     grid-template-columns: repeat(3, 1fr);
+    margin: auto;
   }
 }

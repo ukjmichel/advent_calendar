@@ -78,6 +78,10 @@ nav img {
   color: var(--primary-gold);
 }
 
+li span {
+  cursor: pointer;
+}
+
 /* Desktop View */
 @media screen and (min-width: 1280px) {
   nav {

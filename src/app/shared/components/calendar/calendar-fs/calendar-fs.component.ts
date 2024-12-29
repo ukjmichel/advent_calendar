@@ -1,6 +1,14 @@
 import { CommonModule } from '@angular/common';
-import { Component, input, computed, OnInit, output } from '@angular/core';
+import {
+  Component,
+  input,
+  computed,
+  OnInit,
+  output,
+  inject,
+} from '@angular/core';
 import { DefaultCaseComponent } from '../cases/case.component';
+import { ImageService } from '../../../../services/images.service';
 
 interface Calendar {
   id: string;
@@ -17,14 +25,23 @@ interface Calendar {
   templateUrl: './calendar-fs.component.html',
   styleUrls: ['./calendar-fs.component.css'], // Fixed typo
 })
-export class CalendarFsComponent {
+export class CalendarFsComponent implements OnInit {
   calendar = input.required<Calendar>();
   openedCase = output<string>();
-
-  // Computed signals for reactive properties
   cases = computed(() => this.calendar().cases);
-  background = computed(() => this.calendar().background);
+  imagesService = inject(ImageService);
+  background: string | null = null; // Update type to string | null
 
+  async getBackground(): Promise<string | null> {
+    const blob = await this.imagesService.getImage(this.calendar().background);
+    return blob ? URL.createObjectURL(blob) : null; // Convert Blob to a URL string
+  }
+
+  async ngOnInit(): Promise<void> {
+    if (this.calendar().background) {
+      this.background = await this.getBackground(); // Assign string URL to background
+    }
+  }
   openCase(caseId: string) {
     this.openedCase.emit(caseId);
   }

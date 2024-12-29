@@ -1,10 +1,9 @@
 <app-layout>
   <section>
-    <!-- Title -->
-    <h1>Profil</h1>
-
     <!-- Form -->
     <form (ngSubmit)="onSubmit(signUpForm)" #signUpForm="ngForm">
+      <!-- Title -->
+      <h1>Profil</h1>
       <!-- Username Field -->
       <div>
         <label for="username">Nom</label>
@@ -52,7 +51,6 @@
         <button type="button" (click)="enableEdit()" [disabled]="!isEditing">
           Modifier
         </button>
-
 
         <button class="delete-btn" [disabled]="true">Suprimer</button>
       </div>

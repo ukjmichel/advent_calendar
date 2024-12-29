@@ -15,6 +15,7 @@
   gap: 5px; /* Espacement entre les cases */
   padding: 10px;
   margin: auto;
+  transition: all 0.1s ease-in; /* Smooth transition for all properties */
 }
 
 /* Style pour chaque case */
@@ -28,4 +29,11 @@
   color: white;
   font-weight: bold;
   font-size: 16px;
+}
+
+.calendar:hover {
+  transform: rotate(5deg); /* Slight rotation effect */
+  border: solid 3px var(--primary-gold); /* Adds a border */
+  border-radius: 10px; /* Rounds corners */
+  box-shadow: 0 4px 8px rgba(126, 104, 30, 0.5); /* Subtle shadow effect */
 }

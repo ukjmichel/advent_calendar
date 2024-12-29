@@ -1,9 +1,10 @@
 <app-layout [headerIcon]="headerIcon" [headerTitle]="headerTitle">
   <section>
-    <app-calendar-sm [background]="selectedTheme()" />
+    <app-calendar-sm [imagePath]="selectedTheme()" class="item1" />
     <app-create-calendar-form
       [themeOptions]="themeOptions"
-      (selectedTheme)="updateTheme($event)"
+      (selectedTheme)="updateSelectedTheme($event)"
+      class="item2"
     />
   </section>
 </app-layout>

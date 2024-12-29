@@ -15,7 +15,7 @@ export class CalendarListService {
   calendars: Calendar[] = [
     {
       id: '1',
-      background: 'assets/images/alley.png',
+      background: 'images/alley.png',
       sender: 'john',
       message:
         'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor',
@@ -48,7 +48,7 @@ export class CalendarListService {
     },
     {
       id: '2',
-      background: 'assets/images/morning-light.jpg',
+      background: 'images/morning-light.jpg',
       sender: 'susan',
       message:
         'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor',
@@ -81,7 +81,7 @@ export class CalendarListService {
     },
     {
       id: '3',
-      background: 'assets/images/venise.webp',
+      background: 'images/venise.webp',
       sender: 'peter',
       message:
         'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor',
@@ -114,7 +114,7 @@ export class CalendarListService {
     },
     {
       id: '4',
-      background: 'assets/images/alley.png',
+      background: 'images/alley.png',
       sender: 'frederic',
       message:
         'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor',
@@ -147,7 +147,7 @@ export class CalendarListService {
     },
     {
       id: '5',
-      background: 'assets/images/morning-light.jpg',
+      background: 'images/morning-light.jpg',
       sender: 'alan',
       message:
         'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor',
@@ -180,7 +180,7 @@ export class CalendarListService {
     },
     {
       id: '6',
-      background: 'assets/images/venise.webp',
+      background: 'images/venise.webp',
       sender: 'bob',
       message:
         'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor',

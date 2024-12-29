@@ -2,6 +2,7 @@ import { Component, inject } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { AuthenticationService } from '../../../../services/authentication.service';
 import { SignInPageService } from '../../sign-in-service.service';
+import { ScreenSizeService } from '../../../../services/screen-size.service';
 
 @Component({
   selector: 'app-sign-up-form',
@@ -18,7 +19,7 @@ export class SignUpFormComponent {
   };
 
   signService = inject(SignInPageService);
-  errorMessage: string | null = null; // Property to store error messages
+  isSmallScreen = inject(ScreenSizeService).isSmallScreen;
 
   private authService = inject(AuthenticationService);
 
@@ -28,22 +29,19 @@ export class SignUpFormComponent {
    */
   async onSubmit(form: any): Promise<void> {
     if (form.valid) {
-      this.errorMessage = null; // Reset error message before submission
       try {
-        await this.authService.register(
-          this.formData.username,
+        this.authService.register(
           this.formData.email,
+          this.formData.username,
           this.formData.password
         );
         console.log('Registration successful');
-        form.reset(); // Reset the form after successful submission
       } catch (err: any) {
         console.error('Registration failed:', err);
-        this.errorMessage =
-          err.message || 'Registration failed. Please try again.'; // Set error message
+        alert(err.message || 'Signup failed');
       }
     } else {
-      this.errorMessage = 'Please fill in all required fields correctly.';
+      alert('Please fill all fields.');
     }
   }
 

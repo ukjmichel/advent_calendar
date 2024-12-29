@@ -1,15 +1,7 @@
-<!-- Title -->
-<h1>Inscription</h1>
-
-<!-- Display Error Message -->
-@if(errorMessage){
-<div class="error-message">
-  {{ errorMessage }}
-</div>
-}
-
 <!-- Form -->
 <form (ngSubmit)="onSubmit(signUpForm)" #signUpForm="ngForm">
+  <!-- Title -->
+  <h1>Inscription</h1>
   <!-- Username Field -->
   <div>
     <label for="username">Identifiant</label>
@@ -51,5 +43,7 @@
 
   <!-- Submit Button -->
   <button type="submit" [disabled]="signUpForm.invalid">S'inscrire</button>
-  <p (click)="toggleAsAccount()">Créer un compte</p>
+  @if(isSmallScreen()){
+  <p (click)="toggleAsAccount()">Se connecter</p>
+  }
 </form>

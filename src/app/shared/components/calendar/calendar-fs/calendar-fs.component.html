@@ -1,4 +1,4 @@
-<div class="calendar" [style.backgroundImage]="'url(' + background() + ')'">
+<div class="calendar" [style.backgroundImage]="'url(' + background + ')'">
   <!-- Générer les cases pour chaque calendrier -->
   <app-case
     *ngFor="let case of cases(); let i = index"

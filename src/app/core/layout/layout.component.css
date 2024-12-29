@@ -1,7 +1,6 @@
 :host main {
   height: calc(100vh - 160px);
   overflow: scroll;
-  max-width: 1280px;
   margin: auto;
 }
 

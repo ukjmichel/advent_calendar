@@ -7,15 +7,15 @@ export class DataService {
   models = [
     {
       name: 'alley',
-      path: 'assets/images/alley.png',
+      path: 'images/alley.png',
     },
     {
       name: 'morning-light',
-      path: 'assets/images/morning-light.jpg',
+      path: 'images/morning-light.jpg',
     },
     {
       name: 'venise',
-      path: 'assets/images/venise.webp',
+      path: 'images/venise.webp',
     },
   ];
 }
