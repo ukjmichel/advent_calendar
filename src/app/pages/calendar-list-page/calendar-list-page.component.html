@@ -1,32 +1,31 @@
 <app-layout [headerTitle]="headerTitle" [headerIcon]="headerIcon">
   <section>
     <div class="calendars-container">
-      @for(calendar of displayedCalendars(); track calendar.id){
-      <app-calendar-list-article [calendar]="calendar" class="calendar" />
-
-      } @empty {
+      @for(calendar of displayedOwnCalendars(); track calendar.id){
+      <app-calendar-list-article [calendar]="calendar"/> - }
+      @empty {
       <p>There are no items.</p>
       }
     </div>
     <div>
-      <button (click)="prevPage('calendars')">prev</button
-      ><button (click)="nextPage('calendars')">next</button>
+      <button (click)="prevPage('ownCalendars')">prev</button
+      ><button (click)="nextPage('ownCalendars')">next</button>
     </div>
   </section>
   <section>
     <h1>Mes Créations</h1>
     <div class="calendars-container">
-      @for(calendar of displayedCreations(); track calendar.id){
+      @for(calendar of displayedGiftedCalendars(); track calendar.id){
 
-      <app-calendar-list-article [calendar]="calendar" />
+      <app-calendar-list-article [calendar]="calendar" /> 
 
       } @empty {
       <p>There are no items.</p>
       }
     </div>
     <div>
-      <button (click)="prevPage('creations')">prev</button
-      ><button (click)="nextPage('creations')">next</button>
+      <button (click)="prevPage('giftedCalendars')">prev</button
+      ><button (click)="nextPage('giftedCalendars')">next</button>
     </div>
   </section>
 </app-layout>

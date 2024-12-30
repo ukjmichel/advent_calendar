@@ -1,6 +1,6 @@
 import { Injectable, signal, WritableSignal } from '@angular/core';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
-import { firstValueFrom, lastValueFrom } from 'rxjs';
+import { firstValueFrom } from 'rxjs';
 
 interface AuthResponse {
   token: string;
@@ -8,8 +8,15 @@ interface AuthResponse {
 }
 
 interface ProfileResponse {
-  id: string;
+  message: string;
+  user: User;
+}
+
+interface User {
   email: string;
+  exp: number;
+  iat: number;
+  id: string;
   username: string;
 }
 
@@ -19,10 +26,27 @@ interface ProfileResponse {
 export class AuthenticationService {
   private apiUrl = 'http://localhost:3000/auth'; // Replace with your API base URL
 
-  // Signal for authentication state
   isAuthenticatedSignal: WritableSignal<boolean> = signal(this.hasToken());
+  userProfile: WritableSignal<User | null> = signal(null);
 
-  constructor(private http: HttpClient) {}
+  constructor(private http: HttpClient) {
+    this.initialize();
+  }
+
+  // Initialize service (fetch profile if token exists)
+  private async initialize(): Promise<void> {
+    if (this.hasToken()) {
+      try {
+        const profileResponse = await this.getProfile();
+        this.userProfile.set(profileResponse.user);
+        this.isAuthenticatedSignal.set(true);
+        console.log('User profile initialized:', this.userProfile);
+      } catch (error) {
+        console.error('Failed to initialize user profile:', error);
+        this.logout(); // Clear token if fetching profile fails
+      }
+    }
+  }
 
   // Login (POST request)
   async login(email: string, password: string): Promise<void> {
@@ -34,9 +58,8 @@ export class AuthenticationService {
           password,
         })
       );
-
       this.setToken(response.token);
-      this.isAuthenticatedSignal.set(true);
+      await this.initialize(); // Fetch user profile after login
       console.log('Login successful');
     } catch (error: any) {
       console.error('Login failed:', error);
@@ -49,6 +72,7 @@ export class AuthenticationService {
   // Logout
   logout(): void {
     this.clearToken();
+    this.userProfile.set(null);
     this.isAuthenticatedSignal.set(false);
     console.log('User logged out');
   }
@@ -69,7 +93,7 @@ export class AuthenticationService {
         })
       );
       this.setToken(response.token);
-      this.isAuthenticatedSignal.set(true);
+      await this.initialize(); // Fetch user profile after registration
       console.log('Registration successful');
     } catch (error: any) {
       console.error('Registration failed:', error);
@@ -87,12 +111,11 @@ export class AuthenticationService {
     }
 
     try {
-      const profile = await lastValueFrom(
+      const profile = await firstValueFrom(
         this.http.get<ProfileResponse>(`${this.apiUrl}/profile`, {
           headers: this.getAuthHeaders(),
         })
       );
-
       console.log('Fetched profile:', profile);
       return profile;
     } catch (error: any) {
@@ -107,7 +130,7 @@ export class AuthenticationService {
   }
 
   // Helper to get the token
-  private getToken(): string | null {
+  getToken(): string | null {
     return localStorage.getItem('token');
   }
 
@@ -122,7 +145,7 @@ export class AuthenticationService {
   }
 
   // Helper to create authorization headers
-  private getAuthHeaders(): HttpHeaders {
+  getAuthHeaders(): HttpHeaders {
     const token = this.getToken();
     return new HttpHeaders({ Authorization: `Bearer ${token}` });
   }

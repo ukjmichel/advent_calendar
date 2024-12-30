@@ -4,11 +4,13 @@ import { RouterLink } from '@angular/router';
 
 interface Calendar {
   id: string;
-  background: string;
   sender: string;
+  receiver: string;
   message: string;
-  cases: { id: string; state: 'closed' | 'opened' }[];
+  created_at: string; // ISO date string
+  image_path: string | null; // Nullable
 }
+
 @Component({
   selector: 'app-calendar-list-article',
   standalone: true,
@@ -16,6 +18,9 @@ interface Calendar {
   templateUrl: './calendar-list-article.component.html',
   styleUrl: './calendar-list-article.component.css',
 })
-export class CalendarListArticleComponent {
-  calendar = input.required<Calendar>();
+export class CalendarListArticleComponent{
+  headerIcon = 'assets/icons/chrismas_ball.svg';
+  calendar = input<Calendar>();
+
+
 }

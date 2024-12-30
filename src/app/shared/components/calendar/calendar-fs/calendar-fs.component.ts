@@ -9,13 +9,35 @@ import {
 } from '@angular/core';
 import { DefaultCaseComponent } from '../cases/case.component';
 import { ImageService } from '../../../../services/images.service';
+import { CalendarListService } from '../../../../services/calendar-list.service';
+
+export interface CaseResponse {
+  message: string;
+  data: CaseData;
+}
 
 interface Calendar {
   id: string;
-  background: string;
   sender: string;
+  receiver: string;
   message: string;
-  cases: { id: string; state: 'closed' | 'opened' }[];
+  created_at: string; // ISO date string
+  image_path: string; // Path to the associated image
+}
+
+export interface CaseData {
+  _id: string;
+  calendarId: string;
+  cases: Case[];
+  __v: number;
+}
+
+export interface Case {
+  number: number;
+  state: 'closed' | 'opened' | 'empty'; // "closed" or "open" based on your application's logic
+  filePath: string;
+  message: string;
+  _id: string;
 }
 
 @Component({
@@ -26,23 +48,25 @@ interface Calendar {
   styleUrls: ['./calendar-fs.component.css'], // Fixed typo
 })
 export class CalendarFsComponent implements OnInit {
-  calendar = input.required<Calendar>();
-  openedCase = output<string>();
-  cases = computed(() => this.calendar().cases);
-  imagesService = inject(ImageService);
+  calendarId = input<string>('');
+  calendarDetail: Calendar | null = null;
+  imageService = inject(ImageService);
+  calendarService = inject(CalendarListService);
+  imagePath: string | null = '';
   background: string | null = null; // Update type to string | null
+  cases: CaseData | null = null;
 
   async getBackground(): Promise<string | null> {
-    const blob = await this.imagesService.getImage(this.calendar().background);
+    const blob = await this.imageService.getImage(this.imagePath);
     return blob ? URL.createObjectURL(blob) : null; // Convert Blob to a URL string
   }
 
   async ngOnInit(): Promise<void> {
-    if (this.calendar().background) {
-      this.background = await this.getBackground(); // Assign string URL to background
-    }
-  }
-  openCase(caseId: string) {
-    this.openedCase.emit(caseId);
+    this.cases = await this.calendarService.getCases(this.calendarId());
+    this.calendarDetail = await this.calendarService.getCalendars(
+      this.calendarId()
+    );
+    this.imagePath = this.calendarDetail.image_path;
+    this.background = await this.getBackground();
   }
 }

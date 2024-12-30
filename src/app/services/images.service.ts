@@ -22,7 +22,7 @@ export class ImageService {
   }
 
   // Fetch a specific image for preview using Promise<void>
-  async getImage(imagePath: string): Promise<Blob> {
+  async getImage(imagePath: string | null): Promise<Blob> {
     const url = `${this.apiUrl}api/image-file?filePath=${imagePath}`;
     return firstValueFrom(this.http.get(url, { responseType: 'blob' }));
   }

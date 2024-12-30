@@ -1,228 +1,124 @@
-import { Injectable } from '@angular/core';
+import { inject, Injectable } from '@angular/core';
+import { environment } from '../../environments/environment.development';
+import { HttpClient, HttpHeaders } from '@angular/common/http';
+import { firstValueFrom } from 'rxjs';
+import { AuthenticationService } from './authentication.service';
+
+interface CalendarsResponse {
+  message: string;
+  data: Calendar[];
+}
+interface CalendarResponse {
+  message: string;
+  data: Calendar;
+}
 
 interface Calendar {
   id: string;
-  background: string;
   sender: string;
+  receiver: string;
   message: string;
-  cases: { id: string; state: 'closed' | 'opened' }[];
+  created_at: string; // ISO date string
+  image_path: string; // Path to the associated image
+}
+
+export interface CaseResponse {
+  message: string;
+  data: CaseData;
+}
+
+export interface CaseData {
+  _id: string;
+  calendarId: string;
+  cases: Case[];
+  __v: number;
+}
+
+export interface Case {
+  number: number;
+  state: 'closed' | 'opened' | 'empty'; // "closed" or "open" based on your application's logic
+  filePath: string;
+  message: string;
+  _id: string;
 }
 
 @Injectable({
   providedIn: 'root',
 })
 export class CalendarListService {
-  calendars: Calendar[] = [
-    {
-      id: '1',
-      background: 'images/alley.png',
-      sender: 'john',
-      message:
-        'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor',
-      cases: [
-        { id: '1', state: 'opened' },
-        { id: '2', state: 'closed' },
-        { id: '3', state: 'closed' },
-        { id: '4', state: 'closed' },
-        { id: '5', state: 'closed' },
-        { id: '6', state: 'closed' },
-        { id: '7', state: 'closed' },
-        { id: '8', state: 'closed' },
-        { id: '9', state: 'closed' },
-        { id: '10', state: 'closed' },
-        { id: '11', state: 'closed' },
-        { id: '12', state: 'closed' },
-        { id: '13', state: 'closed' },
-        { id: '14', state: 'closed' },
-        { id: '15', state: 'closed' },
-        { id: '16', state: 'closed' },
-        { id: '17', state: 'closed' },
-        { id: '18', state: 'closed' },
-        { id: '19', state: 'closed' },
-        { id: '20', state: 'closed' },
-        { id: '21', state: 'closed' },
-        { id: '22', state: 'closed' },
-        { id: '23', state: 'closed' },
-        { id: '24', state: 'closed' },
-      ],
-    },
-    {
-      id: '2',
-      background: 'images/morning-light.jpg',
-      sender: 'susan',
-      message:
-        'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor',
-      cases: [
-        { id: '1', state: 'closed' },
-        { id: '2', state: 'closed' },
-        { id: '3', state: 'closed' },
-        { id: '4', state: 'closed' },
-        { id: '5', state: 'closed' },
-        { id: '6', state: 'closed' },
-        { id: '7', state: 'closed' },
-        { id: '8', state: 'closed' },
-        { id: '9', state: 'closed' },
-        { id: '10', state: 'closed' },
-        { id: '11', state: 'closed' },
-        { id: '12', state: 'closed' },
-        { id: '13', state: 'closed' },
-        { id: '14', state: 'closed' },
-        { id: '15', state: 'closed' },
-        { id: '16', state: 'closed' },
-        { id: '17', state: 'closed' },
-        { id: '18', state: 'closed' },
-        { id: '19', state: 'closed' },
-        { id: '20', state: 'closed' },
-        { id: '21', state: 'closed' },
-        { id: '22', state: 'closed' },
-        { id: '23', state: 'closed' },
-        { id: '24', state: 'closed' },
-      ],
-    },
-    {
-      id: '3',
-      background: 'images/venise.webp',
-      sender: 'peter',
-      message:
-        'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor',
-      cases: [
-        { id: '1', state: 'closed' },
-        { id: '2', state: 'closed' },
-        { id: '3', state: 'closed' },
-        { id: '4', state: 'closed' },
-        { id: '5', state: 'closed' },
-        { id: '6', state: 'closed' },
-        { id: '7', state: 'closed' },
-        { id: '8', state: 'closed' },
-        { id: '9', state: 'closed' },
-        { id: '10', state: 'closed' },
-        { id: '11', state: 'closed' },
-        { id: '12', state: 'closed' },
-        { id: '13', state: 'closed' },
-        { id: '14', state: 'closed' },
-        { id: '15', state: 'closed' },
-        { id: '16', state: 'closed' },
-        { id: '17', state: 'closed' },
-        { id: '18', state: 'closed' },
-        { id: '19', state: 'closed' },
-        { id: '20', state: 'closed' },
-        { id: '21', state: 'closed' },
-        { id: '22', state: 'closed' },
-        { id: '23', state: 'closed' },
-        { id: '24', state: 'closed' },
-      ],
-    },
-    {
-      id: '4',
-      background: 'images/alley.png',
-      sender: 'frederic',
-      message:
-        'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor',
-      cases: [
-        { id: '1', state: 'closed' },
-        { id: '2', state: 'closed' },
-        { id: '3', state: 'closed' },
-        { id: '4', state: 'closed' },
-        { id: '5', state: 'closed' },
-        { id: '6', state: 'closed' },
-        { id: '7', state: 'closed' },
-        { id: '8', state: 'closed' },
-        { id: '9', state: 'closed' },
-        { id: '10', state: 'closed' },
-        { id: '11', state: 'closed' },
-        { id: '12', state: 'closed' },
-        { id: '13', state: 'closed' },
-        { id: '14', state: 'closed' },
-        { id: '15', state: 'closed' },
-        { id: '16', state: 'closed' },
-        { id: '17', state: 'closed' },
-        { id: '18', state: 'closed' },
-        { id: '19', state: 'closed' },
-        { id: '20', state: 'closed' },
-        { id: '21', state: 'closed' },
-        { id: '22', state: 'closed' },
-        { id: '23', state: 'closed' },
-        { id: '24', state: 'closed' },
-      ],
-    },
-    {
-      id: '5',
-      background: 'images/morning-light.jpg',
-      sender: 'alan',
-      message:
-        'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor',
-      cases: [
-        { id: '1', state: 'closed' },
-        { id: '2', state: 'closed' },
-        { id: '3', state: 'closed' },
-        { id: '4', state: 'closed' },
-        { id: '5', state: 'closed' },
-        { id: '6', state: 'closed' },
-        { id: '7', state: 'closed' },
-        { id: '8', state: 'closed' },
-        { id: '9', state: 'closed' },
-        { id: '10', state: 'closed' },
-        { id: '11', state: 'closed' },
-        { id: '12', state: 'closed' },
-        { id: '13', state: 'closed' },
-        { id: '14', state: 'closed' },
-        { id: '15', state: 'closed' },
-        { id: '16', state: 'closed' },
-        { id: '17', state: 'closed' },
-        { id: '18', state: 'closed' },
-        { id: '19', state: 'closed' },
-        { id: '20', state: 'closed' },
-        { id: '21', state: 'closed' },
-        { id: '22', state: 'closed' },
-        { id: '23', state: 'closed' },
-        { id: '24', state: 'closed' },
-      ],
-    },
-    {
-      id: '6',
-      background: 'images/venise.webp',
-      sender: 'bob',
-      message:
-        'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor',
-      cases: [
-        { id: '1', state: 'closed' },
-        { id: '2', state: 'closed' },
-        { id: '3', state: 'closed' },
-        { id: '4', state: 'closed' },
-        { id: '5', state: 'closed' },
-        { id: '6', state: 'closed' },
-        { id: '7', state: 'closed' },
-        { id: '8', state: 'closed' },
-        { id: '9', state: 'closed' },
-        { id: '10', state: 'closed' },
-        { id: '11', state: 'closed' },
-        { id: '12', state: 'closed' },
-        { id: '13', state: 'closed' },
-        { id: '14', state: 'closed' },
-        { id: '15', state: 'closed' },
-        { id: '16', state: 'closed' },
-        { id: '17', state: 'closed' },
-        { id: '18', state: 'closed' },
-        { id: '19', state: 'closed' },
-        { id: '20', state: 'closed' },
-        { id: '21', state: 'closed' },
-        { id: '22', state: 'closed' },
-        { id: '23', state: 'closed' },
-        { id: '24', state: 'closed' },
-      ],
-    },
-    // Repeat the same for remaining calendars
-  ];
+  private apiUrl = environment.apiUrl + 'calendar/';
+  private http = inject(HttpClient);
+  authService = inject(AuthenticationService);
 
-  updateCase(calendarId: string, caseId: string) {
-    const calendar = this.calendars.find(
-      (calendar) => calendar.id === calendarId
+  async getSenderCalendars(sender_id: string): Promise<any> {
+    try {
+      const headers = this.authService.getAuthHeaders();
+      const response = await firstValueFrom(
+        this.http.get<CalendarsResponse>(`${this.apiUrl}sender/${sender_id}`, {
+          headers,
+        })
+      );
+      return response.data;
+    } catch (error) {
+      console.error('Error fetching calendars for sender:', error);
+      throw new Error(
+        'An error occurred while retrieving calendars for the specified sender.'
+      );
+    }
+  }
+
+  async getReceiverCalendars(receiver_id: string): Promise<any> {
+    try {
+      const headers = this.authService.getAuthHeaders();
+      const url = `${this.apiUrl}receiver/${receiver_id}`;
+      const response = await firstValueFrom(
+        this.http.get<CalendarsResponse>(url, { headers })
+      );
+      return response.data;
+    } catch (error) {
+      console.error('Error fetching calendars for receiver:', error);
+      throw new Error(
+        'An error occurred while retrieving calendars for the specified receiver.'
+      );
+    }
+  }
+
+  async getCalendars(calendar_id: string) {
+    const response = await firstValueFrom(
+      this.http.get<CalendarResponse>(this.apiUrl + calendar_id)
     );
-    if (calendar) {
-      const caseIndex = calendar.cases.findIndex((c) => c.id === caseId);
-      if (caseIndex !== -1) {
-        calendar.cases[caseIndex].state = 'opened';
-      }
+    return response.data;
+  }
+
+  async getCases(calendar_id: string) {
+    const response = await firstValueFrom(
+      this.http.get<CaseResponse>(this.apiUrl + 'cases/' + calendar_id)
+    );
+    return response.data;
+  }
+
+  async createNewCalendars(
+    sender: string,
+    receiver: string,
+    message: string,
+    image_path: string
+  ): Promise<any> {
+    console.log(sender, receiver, message, image_path);
+    try {
+      const headers = this.authService.getAuthHeaders();
+      const response = await firstValueFrom(
+        this.http.post<CalendarResponse>(
+          this.apiUrl,
+          { sender, receiver, message, image_path },
+          { headers }
+        )
+      );
+      return response.data;
+    } catch (error) {
+      console.error('Error creating new calendar:', error);
+      throw new Error(
+        'An error occurred while creating the calendar. Please try again later.'
+      );
     }
   }
 }

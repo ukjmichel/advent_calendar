@@ -1,13 +1,13 @@
 <article>
   <div>
     <app-calendar-sm
-      [imagePath]="calendar().background"
-      [routerLink]="['/calendar', calendar().id]"
+      [imagePath]="calendar()?.image_path || ''"
+      [routerLink]="['/calendar', calendar()?.id]"
       class="app-calendar-sm"
-    />
+    ></app-calendar-sm>
   </div>
   <div class="message">
-    <h2>De la part de {{ calendar().sender }}</h2>
-    <div>{{ calendar().message }}</div>
+    <h2>De la part de {{ "sender"}}</h2>
+    <div>{{ calendar()?.message }}</div>
   </div>
 </article>

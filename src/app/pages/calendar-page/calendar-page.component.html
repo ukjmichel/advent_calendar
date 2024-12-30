@@ -1,8 +1,5 @@
 <app-layout>
   <section>
-    <app-calendar-fs
-      [calendar]="selectedCalendar()"
-      (openedCase)="openCase($event)"
-    />
+    <app-calendar-fs [calendarId]="calendarId()" />
   </section>
 </app-layout>

@@ -3,7 +3,7 @@
     <app-calendar-sm [imagePath]="selectedTheme()" class="item1" />
     <app-create-calendar-form
       [themeOptions]="themeOptions"
-      (selectedTheme)="updateSelectedTheme($event)"
+      (themeIsSelected)="updateSelectedTheme($event)"
       class="item2"
     />
   </section>

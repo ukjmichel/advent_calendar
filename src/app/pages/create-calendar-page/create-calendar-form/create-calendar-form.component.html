@@ -1,4 +1,4 @@
-<form>
+<form (ngSubmit)="OnSubmit()">
   <!-- Theme Input -->
   <div>
     <label for="theme">theme</label>
@@ -29,9 +29,8 @@
       placeholder="Entrer votre message"
       rows="4"
       cols="50"
+      [(ngModel)]="message"
     ></textarea>
   </div>
-  <button [disabled]="!isFormValid()" [class.active]="isFormValid()">
-    Valider
-  </button>
+  <button type="submit" [disabled]="!isFormValid()">Valider</button>
 </form>

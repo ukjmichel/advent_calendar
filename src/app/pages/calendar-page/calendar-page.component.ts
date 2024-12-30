@@ -18,20 +18,10 @@ interface Calendar {
   templateUrl: './calendar-page.component.html',
   styleUrls: ['./calendar-page.component.css'],
 })
-export class CalendarPageComponent {
-  calendarId = input<string>(); // Define `calendarId` as an input signal
-  calendarService = inject(CalendarListService);
+export class CalendarPageComponent implements OnInit {
+  calendarId = input<string>(''); // Define `calendarId` as an input signal
 
-  // Computed signal to get the selected calendar dynamically
-  selectedCalendar = computed(() => {
-    const id = this.calendarId(); // Access the current value of the signal
-    const calendar = this.calendarService.calendars.find(
-      (cal) => cal.id === id
-    );
-    return calendar ?? this.calendarService.calendars[0]; // Default to the first calendar if not found
-  });
-
-  openCase(caseId: string) {
-    this.calendarService.updateCase(this.selectedCalendar().id, caseId);
+  ngOnInit(): void {
+    console.log(this.calendarId());
   }
 }

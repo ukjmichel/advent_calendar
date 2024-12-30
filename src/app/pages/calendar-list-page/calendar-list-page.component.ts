@@ -1,18 +1,18 @@
 import { Component, HostListener, inject, OnInit, signal } from '@angular/core';
-import { CalendarSmComponent } from '../../shared/components/calendar/calendar-sm/calendar-sm.component';
 import { LayoutComponent } from '../../core/layout/layout.component';
-
 import { RouterLink } from '@angular/router';
 import { CalendarListService } from '../../services/calendar-list.service';
 import { ScreenSizeService } from '../../services/screen-size.service';
 import { CalendarListArticleComponent } from './calendar-list-article/calendar-list-article.component';
+import { AuthenticationService } from '../../services/authentication.service';
 
 interface Calendar {
   id: string;
-  background: string;
   sender: string;
+  receiver: string;
   message: string;
-  cases: { id: string; state: 'closed' | 'opened' }[];
+  created_at: string; // ISO date string
+  image_path: string | null; // Nullable
 }
 
 @Component({
@@ -25,46 +25,45 @@ interface Calendar {
 export class CalendarListPageComponent implements OnInit {
   headerIcon = 'assets/icons/chrismas_ball_gold.svg';
   headerTitle = 'Mes Calendrier';
-  calendars = inject(CalendarListService).calendars;
+  calendarsService = inject(CalendarListService);
   screenWidth = inject(ScreenSizeService).screenWidth;
-  displayedCalendars = signal<Calendar[]>([]);
-  displayedCreations = signal<Calendar[]>([]);
-  calendarsPage = 0;
-  creationsPage = 0;
+  authService = inject(AuthenticationService);
+  ownCalendars: Calendar[] = [];
+  giftedCalendars: Calendar[] = [];
+  displayedOwnCalendars = signal<Calendar[]>([]);
+  displayedGiftedCalendars = signal<Calendar[]>([]);
+  ownCalendarsPage = 0;
+  giftedCalendarsPage = 0;
   itemsPerPage = 1;
 
-  ngOnInit(): void {
-    this.updateDisplay('calendars');
-    this.updateDisplay('creations');
+  async ngOnInit(): Promise<void> {
+    const userId = (await this.authService.getProfile()).user.id;
+
+    try {
+      // Fetch calendars
+      this.ownCalendars = await this.calendarsService.getReceiverCalendars(
+        userId
+      );
+      this.giftedCalendars = await this.calendarsService.getSenderCalendars(
+        userId
+      );
+
+      // Initialize displayed data
+      this.updateDisplay('ownCalendars');
+      this.updateDisplay('giftedCalendars');
+    } catch (error) {
+      console.error('Error fetching calendars:', error);
+    }
   }
 
   @HostListener('window:resize', ['$event'])
-  onResize(event: Event): void {
-    this.updateDisplay('calendars');
-    this.updateDisplay('creations');
+  onResize(): void {
+    // Update displayed items on window resize
+    this.updateDisplay('ownCalendars');
+    this.updateDisplay('giftedCalendars');
   }
 
-  nextPage(type: 'calendars' | 'creations'): void {
-    const totalPages = Math.ceil(this.calendars.length / this.itemsPerPage);
-    if (type === 'calendars') {
-      this.calendarsPage = (this.calendarsPage + 1) % totalPages;
-    } else {
-      this.creationsPage = (this.creationsPage + 1) % totalPages;
-    }
-    this.updateDisplay(type);
-  }
-
-  prevPage(type: 'calendars' | 'creations'): void {
-    const totalPages = Math.ceil(this.calendars.length / this.itemsPerPage);
-    if (type === 'calendars') {
-      this.calendarsPage = (this.calendarsPage - 1 + totalPages) % totalPages;
-    } else {
-      this.creationsPage = (this.creationsPage - 1 + totalPages) % totalPages;
-    }
-    this.updateDisplay(type);
-  }
-
-  updateDisplay(type: 'calendars' | 'creations'): void {
+  updateDisplay(type: 'ownCalendars' | 'giftedCalendars'): void {
     // Determine items per page based on screen width
     if (this.screenWidth() < 960) {
       this.itemsPerPage = 1;
@@ -74,12 +73,54 @@ export class CalendarListPageComponent implements OnInit {
       this.itemsPerPage = 3;
     }
 
-    const page = type === 'calendars' ? this.calendarsPage : this.creationsPage;
+    const page =
+      type === 'ownCalendars'
+        ? this.ownCalendarsPage
+        : this.giftedCalendarsPage;
     const start = page * this.itemsPerPage;
     const end = start + this.itemsPerPage;
 
+    const targetCalendars =
+      type === 'ownCalendars' ? this.ownCalendars : this.giftedCalendars;
+
     const targetSignal =
-      type === 'calendars' ? this.displayedCalendars : this.displayedCreations;
-    targetSignal.set(this.calendars.slice(start, end));
+      type === 'ownCalendars'
+        ? this.displayedOwnCalendars
+        : this.displayedGiftedCalendars;
+
+    targetSignal.set(targetCalendars.slice(start, end));
+  }
+  nextPage(type: 'ownCalendars' | 'giftedCalendars'): void {
+    if (type === 'ownCalendars') {
+      if (
+        (this.ownCalendarsPage + 1) * this.itemsPerPage <
+        this.ownCalendars.length
+      ) {
+        this.ownCalendarsPage++;
+        this.updateDisplay('ownCalendars');
+      }
+    } else if (type === 'giftedCalendars') {
+      if (
+        (this.giftedCalendarsPage + 1) * this.itemsPerPage <
+        this.giftedCalendars.length
+      ) {
+        this.giftedCalendarsPage++;
+        this.updateDisplay('giftedCalendars');
+      }
+    }
+  }
+
+  prevPage(type: 'ownCalendars' | 'giftedCalendars'): void {
+    if (type === 'ownCalendars') {
+      if (this.ownCalendarsPage > 0) {
+        this.ownCalendarsPage--;
+        this.updateDisplay('ownCalendars');
+      }
+    } else if (type === 'giftedCalendars') {
+      if (this.giftedCalendarsPage > 0) {
+        this.giftedCalendarsPage--;
+        this.updateDisplay('giftedCalendars');
+      }
+    }
   }
 }

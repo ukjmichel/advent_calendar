@@ -18,11 +18,10 @@ import { ImageService } from '../../../../services/images.service';
   styleUrls: ['./calendar-sm.component.css'], // Corrected `styleUrls`
 })
 export class CalendarSmComponent implements OnInit, OnChanges {
-  imagePath = input<string>('');
+  imagePath = input<string|null>('');
   cases = Array.from({ length: 24 }, (_, i) => i + 1);
   imageService = inject(ImageService);
   background: string | null = null; // Update type to string | null
-
   async getBackground(): Promise<string | null> {
     const blob = await this.imageService.getImage(this.imagePath());
     return blob ? URL.createObjectURL(blob) : null; // Convert Blob to a URL string
