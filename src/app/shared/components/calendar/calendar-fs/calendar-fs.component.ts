@@ -18,7 +18,7 @@ export interface CaseResponse {
 
 interface Calendar {
   id: string;
-  sender: string;
+  senderId: string;
   receiver: string;
   message: string;
   created_at: string; // ISO date string

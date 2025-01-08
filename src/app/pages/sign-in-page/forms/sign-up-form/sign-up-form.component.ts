@@ -35,7 +35,6 @@ export class SignUpFormComponent {
           this.formData.username,
           this.formData.password
         );
-        console.log('Registration successful');
       } catch (err: any) {
         console.error('Registration failed:', err);
         alert(err.message || 'Signup failed');

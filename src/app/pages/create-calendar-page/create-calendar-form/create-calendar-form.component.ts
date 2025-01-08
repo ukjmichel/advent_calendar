@@ -2,6 +2,7 @@ import { Component, inject, input, OnInit, output } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { AuthenticationService } from '../../../services/authentication.service';
 import { CalendarListService } from '../../../services/calendar-list.service';
+import { Router } from '@angular/router';
 
 interface ThemeOption {
   name: string;
@@ -20,10 +21,11 @@ export class CreateCalendarFormComponent implements OnInit {
   themeIsSelected = output<string>();
   authService = inject(AuthenticationService);
   calendarService = inject(CalendarListService);
+  router = inject(Router);
   sender: string = '';
   email: string = '';
   message: string = '';
-  selectedTheme: string = '';
+  selectedTheme: string = 'images/alley.png';
 
   async ngOnInit(): Promise<void> {
     this.sender = (await this.authService.getProfile()).user.id;
@@ -37,13 +39,17 @@ export class CreateCalendarFormComponent implements OnInit {
   }
 
   OnSubmit() {
-    this.calendarService.createNewCalendars(
-      this.sender,
-      this.email,
-      this.message,
-      this.selectedTheme
-    );
-    console.log('form submited')
+    try {
+      this.calendarService.createNewCalendars(
+        this.sender,
+        this.email,
+        this.message,
+        this.selectedTheme
+      );
+      this.router.navigate(['calendars-list']);
+    } catch (error) {
+      console.error(error);
+    }
   }
 
   isFormValid(): boolean {

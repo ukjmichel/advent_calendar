@@ -1,19 +1,18 @@
-import { Component, HostListener, inject, OnInit, signal } from '@angular/core';
+import {
+  Component,
+  HostListener,
+  inject,
+  input,
+  OnInit,
+  signal,
+} from '@angular/core';
 import { LayoutComponent } from '../../core/layout/layout.component';
 import { RouterLink } from '@angular/router';
 import { CalendarListService } from '../../services/calendar-list.service';
 import { ScreenSizeService } from '../../services/screen-size.service';
 import { CalendarListArticleComponent } from './calendar-list-article/calendar-list-article.component';
 import { AuthenticationService } from '../../services/authentication.service';
-
-interface Calendar {
-  id: string;
-  sender: string;
-  receiver: string;
-  message: string;
-  created_at: string; // ISO date string
-  image_path: string | null; // Nullable
-}
+import { Calendar } from '../../models/calendar.models';
 
 @Component({
   selector: 'app-calendar-list-page',
@@ -37,16 +36,10 @@ export class CalendarListPageComponent implements OnInit {
   itemsPerPage = 1;
 
   async ngOnInit(): Promise<void> {
-    const userId = (await this.authService.getProfile()).user.id;
-
     try {
       // Fetch calendars
-      this.ownCalendars = await this.calendarsService.getReceiverCalendars(
-        userId
-      );
-      this.giftedCalendars = await this.calendarsService.getSenderCalendars(
-        userId
-      );
+      this.ownCalendars = await this.calendarsService.getReceiverCalendars();
+      this.giftedCalendars = await this.calendarsService.getSenderCalendars();
 
       // Initialize displayed data
       this.updateDisplay('ownCalendars');
@@ -90,6 +83,7 @@ export class CalendarListPageComponent implements OnInit {
 
     targetSignal.set(targetCalendars.slice(start, end));
   }
+
   nextPage(type: 'ownCalendars' | 'giftedCalendars'): void {
     if (type === 'ownCalendars') {
       if (

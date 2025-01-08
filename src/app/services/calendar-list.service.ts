@@ -15,7 +15,7 @@ interface CalendarResponse {
 
 interface Calendar {
   id: string;
-  sender: string;
+  senderId: string;
   receiver: string;
   message: string;
   created_at: string; // ISO date string
@@ -46,70 +46,84 @@ export interface Case {
   providedIn: 'root',
 })
 export class CalendarListService {
-  private apiUrl = environment.apiUrl + 'calendar/';
+  private apiUrl = environment.apiUrl + 'calendar';
   private http = inject(HttpClient);
   authService = inject(AuthenticationService);
 
-  async getSenderCalendars(sender_id: string): Promise<any> {
+  async getSenderCalendars(): Promise<any> {
     try {
       const headers = this.authService.getAuthHeaders();
       const response = await firstValueFrom(
-        this.http.get<CalendarsResponse>(`${this.apiUrl}sender/${sender_id}`, {
+        this.http.get<CalendarsResponse>(`${this.apiUrl}sender`, {
           headers,
         })
       );
       return response.data;
-    } catch (error) {
-      console.error('Error fetching calendars for sender:', error);
-      throw new Error(
-        'An error occurred while retrieving calendars for the specified sender.'
-      );
+    } catch (error: any) {
+      if (error.status === 404) {
+        console.log('no calendar sended');
+      } else {
+        throw new Error(
+          'An error occurred while retrieving calendars for the specified sender.'
+        );
+      }
     }
   }
 
-  async getReceiverCalendars(receiver_id: string): Promise<any> {
+  async getReceiverCalendars(): Promise<Calendar[]> {
     try {
       const headers = this.authService.getAuthHeaders();
-      const url = `${this.apiUrl}receiver/${receiver_id}`;
+      const url = `${this.apiUrl}/receiver`;
       const response = await firstValueFrom(
         this.http.get<CalendarsResponse>(url, { headers })
       );
-      return response.data;
-    } catch (error) {
-      console.error('Error fetching calendars for receiver:', error);
-      throw new Error(
-        'An error occurred while retrieving calendars for the specified receiver.'
-      );
+      return response?.data || []; // Return an empty array if data is undefined
+    } catch (error: any) {
+      if (error.status === 404) {
+        console.log('No calendar found');
+        return []; // Return an empty array if no calendars are found
+      } else {
+        throw new Error(
+          `An error occurred while retrieving calendars : ${
+            error.message || 'Unknown error'
+          }`
+        );
+      }
     }
   }
 
-  async getCalendars(calendar_id: string) {
+  async getCalendars(calendarId: string) {
+    const headers = this.authService.getAuthHeaders();
+    const url = [this.apiUrl, calendarId].join('/');
     const response = await firstValueFrom(
-      this.http.get<CalendarResponse>(this.apiUrl + calendar_id)
+      this.http.get<CalendarResponse>(url, { headers })
     );
     return response.data;
   }
 
-  async getCases(calendar_id: string) {
+  async getCases(calendarId: string): Promise<CaseResponse['data']> {
+    const headers = this.authService.getAuthHeaders();
+    const url = [this.apiUrl, 'cases', calendarId].join('/');
+
     const response = await firstValueFrom(
-      this.http.get<CaseResponse>(this.apiUrl + 'cases/' + calendar_id)
+      this.http.get<CaseResponse>(url, { headers })
     );
     return response.data;
   }
 
   async createNewCalendars(
-    sender: string,
+    senderId: string,
     receiver: string,
     message: string,
     image_path: string
   ): Promise<any> {
-    console.log(sender, receiver, message, image_path);
+    console.log(senderId, receiver, message, image_path);
     try {
       const headers = this.authService.getAuthHeaders();
       const response = await firstValueFrom(
         this.http.post<CalendarResponse>(
           this.apiUrl,
-          { sender, receiver, message, image_path },
+          { senderId, receiver, message, image_path },
           { headers }
         )
       );

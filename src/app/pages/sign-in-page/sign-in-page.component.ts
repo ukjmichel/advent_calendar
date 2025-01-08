@@ -2,10 +2,8 @@ import {
   Component,
   inject,
   OnDestroy,
-  Signal,
   signal,
-  effect,
-  OnChanges,
+
 } from '@angular/core';
 import { LayoutComponent } from '../../core/layout/layout.component';
 import { SignUpFormComponent } from './forms/sign-up-form/sign-up-form.component';
@@ -35,27 +33,25 @@ export class SignInPageComponent implements OnDestroy {
     window.addEventListener('resize', this.updateScreenWidth);
 
     // Reactive effect to handle authentication changes
-    effect(() => {
-      console.log('Authentication state changed:', this.isAuthenticated());
-      if (this.isAuthenticated()) {
-        console.log('User is authenticated. Redirecting to /calendar-list...');
-        this.redirectToCalendarList();
-      }
-    });
+    // effect(() => {
+    //   if (this.isAuthenticated()) {
+    //     this.redirectToCalendarList();
+    //   }
+    // });
   }
 
   private updateScreenWidth = (): void => {
     this.screenWidth.set(window.innerWidth);
   };
 
-  private async redirectToCalendarList(): Promise<void> {
-    try {
-      await this.router.navigate(['/calendar-list']);
-      console.log('Redirection to /calendar-list successful');
-    } catch (error) {
-      console.error('Navigation to /calendar-list failed:', error);
-    }
-  }
+  // private async redirectToCalendarList(): Promise<void> {
+  //   try {
+  //     await this.router.navigate(['/calendar-list']);
+  //     console.log('Redirection to /calendar-list successful');
+  //   } catch (error) {
+  //     console.error('Navigation to /calendar-list failed:', error);
+  //   }
+  // }
 
   ngOnDestroy(): void {
     window.removeEventListener('resize', this.updateScreenWidth);

@@ -1,4 +1,13 @@
-import { Component, inject, Signal } from '@angular/core';
+import {
+  Component,
+  inject,
+  input,
+  OnChanges,
+  OnInit,
+  signal,
+  Signal,
+  SimpleChanges,
+} from '@angular/core';
 import { AuthenticationService } from '../../../services/authentication.service';
 import { Router, RouterLink } from '@angular/router';
 
@@ -9,14 +18,15 @@ import { Router, RouterLink } from '@angular/router';
   templateUrl: './navbar.component.html',
   styleUrls: ['./navbar.component.css'],
 })
-export class NavbarComponent {
-  isAuthenticated: Signal<boolean>;
+export class NavbarComponent implements OnInit {
+  isAuthenticated = signal<boolean>(false);
   isSidebarOpen = false; // Track sidebar state
 
-  constructor(
-    private authService: AuthenticationService,
-    private router: Router // Inject the Router service
-  ) {
+  authService = inject(AuthenticationService);
+  router = inject(Router);
+  userId = this.authService.userProfile()?.id;
+
+  ngOnInit(): void {
     this.isAuthenticated = this.authService.isAuthenticatedSignal;
   }
 
@@ -40,5 +50,4 @@ export class NavbarComponent {
       }
     });
   }
-
 }

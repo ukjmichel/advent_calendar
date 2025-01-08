@@ -1,24 +1,13 @@
-import { Injectable, signal, WritableSignal } from '@angular/core';
+import { inject, Injectable, signal, WritableSignal } from '@angular/core';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
+import { Router } from '@angular/router';
 import { firstValueFrom } from 'rxjs';
-
-interface AuthResponse {
-  token: string;
-  message?: string;
-}
-
-interface ProfileResponse {
-  message: string;
-  user: User;
-}
-
-interface User {
-  email: string;
-  exp: number;
-  iat: number;
-  id: string;
-  username: string;
-}
+import {
+  AuthResponse,
+  ProfileResponse,
+  User,
+  UsernameResponse,
+} from '../models/auth.models';
 
 @Injectable({
   providedIn: 'root',
@@ -26,10 +15,13 @@ interface User {
 export class AuthenticationService {
   private apiUrl = 'http://localhost:3000/auth'; // Replace with your API base URL
 
+  router = inject(Router);
+  http = inject(HttpClient);
+
   isAuthenticatedSignal: WritableSignal<boolean> = signal(this.hasToken());
   userProfile: WritableSignal<User | null> = signal(null);
 
-  constructor(private http: HttpClient) {
+  constructor() {
     this.initialize();
   }
 
@@ -40,7 +32,6 @@ export class AuthenticationService {
         const profileResponse = await this.getProfile();
         this.userProfile.set(profileResponse.user);
         this.isAuthenticatedSignal.set(true);
-        console.log('User profile initialized:', this.userProfile);
       } catch (error) {
         console.error('Failed to initialize user profile:', error);
         this.logout(); // Clear token if fetching profile fails
@@ -51,7 +42,6 @@ export class AuthenticationService {
   // Login (POST request)
   async login(email: string, password: string): Promise<void> {
     try {
-      console.log('Attempting login:', email);
       const response = await firstValueFrom(
         this.http.post<AuthResponse>(`${this.apiUrl}/login`, {
           email,
@@ -59,8 +49,8 @@ export class AuthenticationService {
         })
       );
       this.setToken(response.token);
-      await this.initialize(); // Fetch user profile after login
-      console.log('Login successful');
+      await this.initialize();
+      await this.redirectToCalendarList(this.userProfile()!.id);
     } catch (error: any) {
       console.error('Login failed:', error);
       throw new Error(
@@ -74,7 +64,6 @@ export class AuthenticationService {
     this.clearToken();
     this.userProfile.set(null);
     this.isAuthenticatedSignal.set(false);
-    console.log('User logged out');
   }
 
   // Register (POST request)
@@ -84,7 +73,6 @@ export class AuthenticationService {
     password: string
   ): Promise<void> {
     try {
-      console.log('Attempting registration');
       const response = await firstValueFrom(
         this.http.post<AuthResponse>(`${this.apiUrl}/register`, {
           email,
@@ -94,7 +82,7 @@ export class AuthenticationService {
       );
       this.setToken(response.token);
       await this.initialize(); // Fetch user profile after registration
-      console.log('Registration successful');
+      await this.redirectToCalendarList(this.userProfile()!.id);
     } catch (error: any) {
       console.error('Registration failed:', error);
       throw new Error(
@@ -116,11 +104,37 @@ export class AuthenticationService {
           headers: this.getAuthHeaders(),
         })
       );
-      console.log('Fetched profile:', profile);
       return profile;
     } catch (error: any) {
       console.error('Failed to fetch profile:', error);
       throw new Error('Failed to fetch profile. Please try again.');
+    }
+  }
+
+  async getUserName(id: string): Promise<string | null> {
+    try {
+      const response = await firstValueFrom(
+        this.http.get<UsernameResponse>(`${this.apiUrl}/username/${id}`, {
+          headers: this.getAuthHeaders(),
+        })
+      );
+
+      return response.username;
+    } catch (error: any) {
+      if (error.status === 404) {
+        console.warn('No username found');
+        return null; // Return null if no username is found
+      }
+      console.error('Failed to fetch profile:', error);
+      throw new Error('Failed to fetch profile. Please try again.');
+    }
+  }
+
+  private async redirectToCalendarList(userId: string): Promise<void> {
+    try {
+      await this.router.navigate(['calendars-list']);
+    } catch (error) {
+      console.error('Navigation to /calendars-list failed:', error);
     }
   }
 
