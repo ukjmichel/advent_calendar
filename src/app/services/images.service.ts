@@ -26,4 +26,8 @@ export class ImageService {
     const url = `${this.apiUrl}api/image-file?filePath=${imagePath}`;
     return firstValueFrom(this.http.get(url, { responseType: 'blob' }));
   }
+  async getUploadImage(imagePath: string | null): Promise<Blob> {
+    const url = `${this.apiUrl}api/image-upload?filePath=${imagePath}`;
+    return firstValueFrom(this.http.get(url, { responseType: 'blob' }));
+  }
 }

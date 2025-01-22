@@ -1,0 +1,13 @@
+<div class="case-modal">
+  <header>
+    <span>#{{ data.caseNumber | number : "2.0-0" }}</span>
+
+    <i class="fa fa-close" (click)="onClose()"></i>
+  </header>
+  <img [src]="uploadedImage" />
+  <div class="message-area">
+    {{ caseData?.message }}
+  </div>
+
+  <div mat-dialog-content></div>
+</div>

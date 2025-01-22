@@ -1,6 +1,5 @@
 import { Component, inject, input, OnInit } from '@angular/core';
 import { CalendarSmComponent } from '../../../shared/components/calendar/calendar-sm/calendar-sm.component';
-import { RouterLink } from '@angular/router';
 import { Calendar } from '../../../models/calendar.models';
 import {} from '../../../services/auth-guard.service';
 import { AuthenticationService } from '../../../services/authentication.service';
@@ -8,7 +7,7 @@ import { AuthenticationService } from '../../../services/authentication.service'
 @Component({
   selector: 'app-calendar-list-article',
   standalone: true,
-  imports: [CalendarSmComponent, RouterLink],
+  imports: [CalendarSmComponent],
   templateUrl: './calendar-list-article.component.html',
   styleUrl: './calendar-list-article.component.css',
 })

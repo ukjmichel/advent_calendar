@@ -1,0 +1,54 @@
+.case-modal {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  position: fixed;
+  top: 15%;
+  left: 0%;
+  height: 70%;
+  width: 100%;
+  background-color: white;
+}
+
+header {
+  display: flex;
+  justify-content: space-between;
+  width: 100%;
+  align-items: center;
+  padding: 20px;
+  font-size: 42px;
+  color: var(--secondary-gold);
+}
+
+header h1 {
+  font-size: 38px;
+}
+
+header i {
+  margin-right: 20px;
+}
+
+header span {
+  margin-left: 20px;
+}
+
+img {
+  height: 50%; /* Set the height to 50% of the container */
+  object-fit: contain; /* Ensures the image covers the area without distortion */
+  display: block;
+}
+.message-area {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+
+  width: 400px;
+  height: 200px;
+
+  border: solid 3px var(--secondary-gold);
+  border-radius: 10px;
+
+  font-size: 24px;
+
+  font-family: "OldStandardTT";
+}

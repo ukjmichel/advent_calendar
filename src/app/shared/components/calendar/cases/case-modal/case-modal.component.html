@@ -1,0 +1,58 @@
+<div class="case-modal">
+  <header>
+    <span>#{{ data.caseNumber | number : "2.0-0" }}</span>
+    <h1 mat-dialog-title>Case Details</h1>
+    <i class="fa fa-close" (click)="onClose()"></i>
+  </header>
+
+  <div mat-dialog-content>
+    <form (ngSubmit)="onSubmit()">
+      <div
+        id="modal-drop-area"
+        [style]="{
+          'background-image': previewUrl ? 'url(' + previewUrl + ')' : 'none'
+        }"
+        (dragover)="onDragOver($event)"
+        (dragleave)="onDragLeave($event)"
+        (drop)="onDrop($event)"
+      >
+        <input
+          type="file"
+          id="input-file"
+          accept="image/*"
+          name="input-file"
+          required
+          hidden
+          (change)="onFileSelected($event)"
+        />
+        <label for="input-file" id="drop-text">
+          <i
+            class="fa-solid fa-arrow-up"
+            id="drop-icon"
+            [style]="{
+              display: previewUrl ? 'none' : 'block'
+            }"
+          ></i>
+          <span>{{ previewUrl ? "" : "+ Ajouter photo" }}</span>
+          <span
+            [style]="{
+              display: previewUrl ? 'none' : 'block'
+            }"
+            >jpg, png : 4mo max</span
+          >
+        </label>
+      </div>
+      <div id="message-area">
+        <label for="">Message</label>
+        <textarea
+          wrap="hard"
+          rows="5"
+          cols="30"
+          [(ngModel)]="message"
+          name="message"
+        ></textarea>
+      </div>
+      <button type="submit" [disabled]="!selectedFile">Submit</button>
+    </form>
+  </div>
+</div>

@@ -54,7 +54,7 @@ export class CalendarListService {
     try {
       const headers = this.authService.getAuthHeaders();
       const response = await firstValueFrom(
-        this.http.get<CalendarsResponse>(`${this.apiUrl}sender`, {
+        this.http.get<CalendarsResponse>(`${this.apiUrl}/sender`, {
           headers,
         })
       );

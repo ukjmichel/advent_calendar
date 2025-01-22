@@ -1,6 +1,11 @@
 <div class="calendar" [style.backgroundImage]="'url(' + background + ')'">
   <!-- Générer les cases pour chaque calendrier -->
-  @for(case of cases?.cases; track case.number){
-  <app-case [caseNumber]="case?.number || 0" [caseState]="case.state" />
+  @for(case of cases()?.cases; track case.number){
+  <app-case
+    [calendarId]="calendarId()"
+    [caseNumber]="case?.number || 0"
+    [caseState]="case.state || 'empty'"
+    (caseUpdated)="updateCases()"
+  />
   }
 </div>

@@ -1,0 +1,114 @@
+.case-modal {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  position: fixed;
+  top: 15%;
+  left: 0%;
+  height: 70%;
+  width: 100%;
+  background-color: white;
+}
+
+header {
+  display: flex;
+  justify-content: space-between;
+  width: 100%;
+  align-items: center;
+  padding: 20px;
+  font-size: 42px;
+}
+
+header h1 {
+  font-size: 38px;
+}
+
+header i {
+  margin-right: 20px;
+}
+
+header span {
+  margin-left: 20px;
+}
+
+form {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  width: 100%;
+  gap: 20px;
+}
+
+form div {
+  width: 100%;
+}
+
+#modal-drop-area {
+  height: 400px;
+  width: 400px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  box-shadow: none;
+  background-size: cover;
+  background-repeat: no-repeat;
+  background-position: center;
+  background-size: contain;
+  border: solid 1px var(--primary-gold);
+}
+
+#drop-icon {
+  position: relative;
+  top: 20px;
+  height: 59px;
+  font-size: 42px;
+}
+
+#modal-form label {
+  line-height: 2;
+}
+
+#drop-text {
+  height: 100%;
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  text-align: center;
+  gap: 20px;
+
+  color: #444444;
+}
+
+#modal-drop-area input[type="file"] {
+  visibility: hidden;
+}
+
+#message-area {
+  display: flex;
+  flex-direction: column;
+}
+
+#message-area textarea {
+  height: 200px;
+  width: 100%;
+  max-width: 400px;
+  margin-top: 10px;
+  border-radius: 10px;
+  border-color: var(--primary-gold);
+  text-align: start;
+  font-size: 36px;
+  padding: 10px;
+}
+
+#message-area textarea {
+  border-color: var(--secondary-gold);
+}
+
+form button {
+  width: 100px;
+  padding: 10px;
+}

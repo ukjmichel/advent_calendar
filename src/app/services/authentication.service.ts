@@ -48,6 +48,7 @@ export class AuthenticationService {
           password,
         })
       );
+
       this.setToken(response.token);
       await this.initialize();
       await this.redirectToCalendarList(this.userProfile()!.id);

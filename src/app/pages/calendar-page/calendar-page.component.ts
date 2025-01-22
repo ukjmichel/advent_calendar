@@ -1,15 +1,6 @@
-import { Component, inject, input, computed, OnInit } from '@angular/core';
+import { Component, input, OnInit } from '@angular/core';
 import { LayoutComponent } from '../../core/layout/layout.component';
 import { CalendarFsComponent } from '../../shared/components/calendar/calendar-fs/calendar-fs.component';
-import { CalendarListService } from '../../services/calendar-list.service';
-
-interface Calendar {
-  id: string;
-  background: string;
-  sender: string;
-  message: string;
-  cases: { id: string; state: 'closed' | 'opened' }[];
-}
 
 @Component({
   selector: 'app-calendar-page',
