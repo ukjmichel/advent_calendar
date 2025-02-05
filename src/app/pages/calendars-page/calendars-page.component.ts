@@ -10,18 +10,20 @@ import { LayoutComponent } from '../../core/layout/layout.component';
 import { RouterLink } from '@angular/router';
 import { CalendarListService } from '../../services/calendar-list.service';
 import { ScreenSizeService } from '../../services/screen-size.service';
-import { CalendarListArticleComponent } from './calendar-list-article/calendar-list-article.component';
+
 import { AuthenticationService } from '../../services/authentication.service';
 import { Calendar } from '../../models/calendar.models';
+import { CalendarsItemComponent } from './calendars-item/calendars-item.component';
+
 
 @Component({
-  selector: 'app-calendar-list-page',
+  selector: 'app-calendars-page',
   standalone: true,
-  imports: [LayoutComponent, RouterLink, CalendarListArticleComponent],
-  templateUrl: './calendar-list-page.component.html',
-  styleUrls: ['./calendar-list-page.component.css'],
+  imports: [LayoutComponent, RouterLink, CalendarsItemComponent],
+  templateUrl: './calendars-page.component.html',
+  styleUrls: ['./calendars-page.component.css'],
 })
-export class CalendarListPageComponent implements OnInit {
+export class CalendarsPageComponent implements OnInit {
   headerIcon = 'assets/icons/chrismas_ball_gold.svg';
   headerTitle = 'Mes Calendrier';
   calendarsService = inject(CalendarListService);

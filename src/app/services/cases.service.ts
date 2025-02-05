@@ -34,8 +34,8 @@ export class CasesService {
       const url = [
         this.apiUrl,
         'calendar',
-        'cases',
         calendarId,
+        'cases',
         caseNumber,
       ].join('/');
 
@@ -61,7 +61,9 @@ export class CasesService {
   ): Promise<CasesResponse> {
     try {
       const headers = this.authService.getAuthHeaders();
-      const url = `${this.apiUrl}/calendar/cases/${calendarId}/${caseId}`;
+      const url = [this.apiUrl, 'calendar', calendarId, 'cases', caseId].join(
+        '/'
+      );
 
       // Construct the body dynamically without the `updates` wrapper
       const body: Partial<{

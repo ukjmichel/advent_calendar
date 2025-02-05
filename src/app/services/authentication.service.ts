@@ -115,7 +115,7 @@ export class AuthenticationService {
   async getUserName(id: string): Promise<string | null> {
     try {
       const response = await firstValueFrom(
-        this.http.get<UsernameResponse>(`${this.apiUrl}/username/${id}`, {
+        this.http.get<UsernameResponse>(`${this.apiUrl}/profile/${id}/username`, {
           headers: this.getAuthHeaders(),
         })
       );
@@ -133,7 +133,7 @@ export class AuthenticationService {
 
   private async redirectToCalendarList(userId: string): Promise<void> {
     try {
-      await this.router.navigate(['calendars-list']);
+      await this.router.navigate(['calendars']);
     } catch (error) {
       console.error('Navigation to /calendars-list failed:', error);
     }

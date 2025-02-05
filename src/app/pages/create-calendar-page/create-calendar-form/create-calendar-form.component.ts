@@ -46,7 +46,7 @@ export class CreateCalendarFormComponent implements OnInit {
         this.message,
         this.selectedTheme
       );
-      this.router.navigate(['calendars-list']);
+      this.router.navigate(['calendars']);
     } catch (error) {
       console.error(error);
     }

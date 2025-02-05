@@ -5,13 +5,13 @@ import {} from '../../../services/auth-guard.service';
 import { AuthenticationService } from '../../../services/authentication.service';
 
 @Component({
-  selector: 'app-calendar-list-article',
+  selector: 'app-calendars-item',
   standalone: true,
   imports: [CalendarSmComponent],
-  templateUrl: './calendar-list-article.component.html',
-  styleUrl: './calendar-list-article.component.css',
+  templateUrl: './calendars-item.component.html',
+  styleUrl: './calendars-item.component.css',
 })
-export class CalendarListArticleComponent implements OnInit {
+export class CalendarsItemComponent implements OnInit {
   headerIcon = 'assets/icons/chrismas_ball.svg';
   calendar = input<Calendar>();
   authService = inject(AuthenticationService);

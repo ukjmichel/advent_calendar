@@ -54,7 +54,7 @@ export class CalendarListService {
     try {
       const headers = this.authService.getAuthHeaders();
       const response = await firstValueFrom(
-        this.http.get<CalendarsResponse>(`${this.apiUrl}/sender`, {
+        this.http.get<CalendarsResponse>(`${this.apiUrl}/sended`, {
           headers,
         })
       );
@@ -73,7 +73,7 @@ export class CalendarListService {
   async getReceiverCalendars(): Promise<Calendar[]> {
     try {
       const headers = this.authService.getAuthHeaders();
-      const url = `${this.apiUrl}/receiver`;
+      const url = `${this.apiUrl}/received`;
       const response = await firstValueFrom(
         this.http.get<CalendarsResponse>(url, { headers })
       );
@@ -93,6 +93,7 @@ export class CalendarListService {
   }
 
   async getCalendars(calendarId: string) {
+    console.log(calendarId);
     const headers = this.authService.getAuthHeaders();
     const url = [this.apiUrl, calendarId].join('/');
     const response = await firstValueFrom(
@@ -103,7 +104,7 @@ export class CalendarListService {
 
   async getCases(calendarId: string): Promise<CaseResponse['data']> {
     const headers = this.authService.getAuthHeaders();
-    const url = [this.apiUrl, 'cases', calendarId].join('/');
+    const url = [this.apiUrl, calendarId, 'cases'].join('/');
 
     const response = await firstValueFrom(
       this.http.get<CaseResponse>(url, { headers })
@@ -112,12 +113,11 @@ export class CalendarListService {
   }
 
   async createNewCalendars(
-    senderId: string,
-    receiver: string,
-    message: string,
-    image_path: string
+    senderId: string = '',
+    receiver: string = '',
+    message: string = '',
+    image_path: string = ''
   ): Promise<any> {
-    console.log(senderId, receiver, message, image_path);
     try {
       const headers = this.authService.getAuthHeaders();
       const response = await firstValueFrom(

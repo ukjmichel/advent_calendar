@@ -9,10 +9,7 @@ import { CalendarFsComponent } from '../../shared/components/calendar/calendar-f
   templateUrl: './calendar-page.component.html',
   styleUrls: ['./calendar-page.component.css'],
 })
-export class CalendarPageComponent implements OnInit {
+export class CalendarPageComponent  {
   calendarId = input<string>(''); // Define `calendarId` as an input signal
 
-  ngOnInit(): void {
-    console.log(this.calendarId());
-  }
 }

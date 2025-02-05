@@ -2,9 +2,9 @@
   <section>
     <div class="calendars-container">
       @for(calendar of displayedOwnCalendars(); track calendar.id){
-      <app-calendar-list-article
+      <app-calendars-item
         [calendar]="calendar"
-        [routerLink]="['/calendar', calendar.id]"
+        [routerLink]="['/calendars', calendar.id]"
       />
       - } @empty {
       <p>There are no items.</p>
@@ -20,9 +20,9 @@
     <div class="calendars-container">
       @for(calendar of displayedGiftedCalendars(); track calendar.id){
 
-      <app-calendar-list-article
+      <app-calendars-item
         [calendar]="calendar"
-        [routerLink]="['/calendar', calendar.id, 'edit']"
+        [routerLink]="['/calendars', calendar.id, 'edit']"
       />
 
       } @empty {

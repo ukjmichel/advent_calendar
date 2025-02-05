@@ -3,8 +3,6 @@ import { LayoutComponent } from '../../core/layout/layout.component';
 import { CreateCalendarFormComponent } from './create-calendar-form/create-calendar-form.component';
 import { ImageService } from '../../services/images.service';
 import { CalendarSmComponent } from '../../shared/components/calendar/calendar-sm/calendar-sm.component';
-import { AuthenticationService } from '../../services/authentication.service';
-import { CalendarListService } from '../../services/calendar-list.service';
 
 interface ThemeOption {
   name: string;
