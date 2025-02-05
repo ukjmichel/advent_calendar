@@ -9,11 +9,10 @@ import { CaseState, UpdateCaseResponse } from '../../../../../models/case.models
 import { DialogService } from '../../../../../services/dialog.service';
 
 @Component({
-  selector: 'app-case-modal',
-  standalone: true,
-  imports: [DecimalPipe, FormsModule],
-  templateUrl: './case-modal.component.html',
-  styleUrls: ['./case-modal.component.css'], // Corrected `styleUrls`
+    selector: 'app-case-modal',
+    imports: [DecimalPipe, FormsModule],
+    templateUrl: './case-modal.component.html',
+    styleUrls: ['./case-modal.component.css']
 })
 export class CaseModalComponent {
   //

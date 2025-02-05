@@ -17,11 +17,10 @@ import { CasesData } from '../../../../models/case.models';
 import { DialogService } from '../../../../services/dialog.service';
 
 @Component({
-  selector: 'app-calendar-fs',
-  standalone: true,
-  imports: [CommonModule, DefaultCaseComponent],
-  templateUrl: './calendar-fs.component.html',
-  styleUrls: ['./calendar-fs.component.css'], // Fixed typo
+    selector: 'app-calendar-fs',
+    imports: [CommonModule, DefaultCaseComponent],
+    templateUrl: './calendar-fs.component.html',
+    styleUrls: ['./calendar-fs.component.css']
 })
 export class CalendarFsComponent implements OnInit {
   calendarId = input<string>('');

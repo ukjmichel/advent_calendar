@@ -13,11 +13,10 @@ import { SignInPageService } from './sign-in-service.service';
 import { Router } from '@angular/router';
 
 @Component({
-  selector: 'app-sign-in-page',
-  standalone: true,
-  imports: [LayoutComponent, SignInFormComponent, SignUpFormComponent],
-  templateUrl: './sign-in-page.component.html',
-  styleUrls: ['./sign-in-page.component.css'],
+    selector: 'app-sign-in-page',
+    imports: [LayoutComponent, SignInFormComponent, SignUpFormComponent],
+    templateUrl: './sign-in-page.component.html',
+    styleUrls: ['./sign-in-page.component.css']
 })
 export class SignInPageComponent implements OnDestroy {
   private authService = inject(AuthenticationService);

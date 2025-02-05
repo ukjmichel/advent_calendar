@@ -6,11 +6,10 @@ import { SignInPageService } from '../../sign-in-service.service';
 import { ScreenSizeService } from '../../../../services/screen-size.service';
 
 @Component({
-  selector: 'app-sign-in-form',
-  templateUrl: './sign-in-form.component.html',
-  styleUrls: ['./sign-in-form.component.css'],
-  imports: [FormsModule],
-  standalone: true,
+    selector: 'app-sign-in-form',
+    templateUrl: './sign-in-form.component.html',
+    styleUrls: ['./sign-in-form.component.css'],
+    imports: [FormsModule]
 })
 export class SignInFormComponent {
   formData = {

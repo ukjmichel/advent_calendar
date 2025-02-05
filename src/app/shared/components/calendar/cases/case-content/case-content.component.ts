@@ -9,11 +9,10 @@ import { Case, CaseResponse } from '../../../../../models/case.models';
 import { ImageService } from '../../../../../services/images.service';
 
 @Component({
-  selector: 'app-case-content',
-  standalone: true,
-  imports: [DecimalPipe],
-  templateUrl: './case-content.component.html',
-  styleUrls: ['./case-content.component.css'], // Fixed typo
+    selector: 'app-case-content',
+    imports: [DecimalPipe],
+    templateUrl: './case-content.component.html',
+    styleUrls: ['./case-content.component.css']
 })
 export class CaseContentComponent implements OnInit {
   //

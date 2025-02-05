@@ -5,11 +5,10 @@ import {} from '../../../services/auth-guard.service';
 import { AuthenticationService } from '../../../services/authentication.service';
 
 @Component({
-  selector: 'app-calendars-item',
-  standalone: true,
-  imports: [CalendarSmComponent],
-  templateUrl: './calendars-item.component.html',
-  styleUrl: './calendars-item.component.css',
+    selector: 'app-calendars-item',
+    imports: [CalendarSmComponent],
+    templateUrl: './calendars-item.component.html',
+    styleUrl: './calendars-item.component.css'
 })
 export class CalendarsItemComponent implements OnInit {
   headerIcon = 'assets/icons/chrismas_ball.svg';

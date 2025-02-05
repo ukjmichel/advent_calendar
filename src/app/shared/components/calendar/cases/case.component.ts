@@ -15,11 +15,10 @@ import { DialogService } from '../../../../services/dialog.service';
 import { CasesService } from '../../../../services/cases.service';
 
 @Component({
-  selector: 'app-case',
-  standalone: true,
-  imports: [], // Include necessary imports
-  templateUrl: './case.component.html',
-  styleUrls: ['./case.component.css'], // Fixed typo
+    selector: 'app-case',
+    imports: [], // Include necessary imports
+    templateUrl: './case.component.html',
+    styleUrls: ['./case.component.css']
 })
 export class DefaultCaseComponent {
   calendarId = input<string>(''); // Input signal for calendarId

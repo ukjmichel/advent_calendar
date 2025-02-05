@@ -11,11 +11,10 @@ import {
 import { ImageService } from '../../../../services/images.service';
 
 @Component({
-  selector: 'app-calendar-sm',
-  standalone: true,
-  imports: [CommonModule],
-  templateUrl: './calendar-sm.component.html',
-  styleUrls: ['./calendar-sm.component.css'], // Corrected `styleUrls`
+    selector: 'app-calendar-sm',
+    imports: [CommonModule],
+    templateUrl: './calendar-sm.component.html',
+    styleUrls: ['./calendar-sm.component.css']
 })
 export class CalendarSmComponent implements OnInit, OnChanges {
   imagePath = input<string|null>('');

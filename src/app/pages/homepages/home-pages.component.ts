@@ -6,16 +6,15 @@ import { ContactFormComponent } from './contact-form/contact-form.component';
 
 
 @Component({
-  selector: 'app-homepages',
-  standalone: true,
-  imports: [
-    NavbarComponent,
-    FooterComponent,
-    CalendarSmComponent,
-    ContactFormComponent,
-  ],
-  templateUrl: './home-pages.component.html',
-  styleUrl: './home-pages.component.css',
+    selector: 'app-homepages',
+    imports: [
+        NavbarComponent,
+        FooterComponent,
+        CalendarSmComponent,
+        ContactFormComponent,
+    ],
+    templateUrl: './home-pages.component.html',
+    styleUrl: './home-pages.component.css'
 })
 export class HomePagesComponent {
   // Liste des backgrounds pour chaque calendrier

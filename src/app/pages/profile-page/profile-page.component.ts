@@ -4,11 +4,10 @@ import { FormsModule } from '@angular/forms';
 import { LayoutComponent } from '../../core/layout/layout.component';
 
 @Component({
-  selector: 'app-profile-page',
-  templateUrl: './profile-page.component.html',
-  styleUrls: ['./profile-page.component.css'],
-  imports: [FormsModule, LayoutComponent],
-  standalone: true,
+    selector: 'app-profile-page',
+    templateUrl: './profile-page.component.html',
+    styleUrls: ['./profile-page.component.css'],
+    imports: [FormsModule, LayoutComponent]
 })
 export class ProfilePageComponent implements OnInit {
   formData = {

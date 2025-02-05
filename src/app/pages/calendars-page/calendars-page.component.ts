@@ -17,11 +17,10 @@ import { CalendarsItemComponent } from './calendars-item/calendars-item.componen
 
 
 @Component({
-  selector: 'app-calendars-page',
-  standalone: true,
-  imports: [LayoutComponent, RouterLink, CalendarsItemComponent],
-  templateUrl: './calendars-page.component.html',
-  styleUrls: ['./calendars-page.component.css'],
+    selector: 'app-calendars-page',
+    imports: [LayoutComponent, RouterLink, CalendarsItemComponent],
+    templateUrl: './calendars-page.component.html',
+    styleUrls: ['./calendars-page.component.css']
 })
 export class CalendarsPageComponent implements OnInit {
   headerIcon = 'assets/icons/chrismas_ball_gold.svg';

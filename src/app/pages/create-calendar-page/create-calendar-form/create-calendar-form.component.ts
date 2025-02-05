@@ -10,11 +10,10 @@ interface ThemeOption {
 }
 
 @Component({
-  selector: 'app-create-calendar-form',
-  standalone: true,
-  imports: [FormsModule],
-  templateUrl: './create-calendar-form.component.html',
-  styleUrl: './create-calendar-form.component.css',
+    selector: 'app-create-calendar-form',
+    imports: [FormsModule],
+    templateUrl: './create-calendar-form.component.html',
+    styleUrl: './create-calendar-form.component.css'
 })
 export class CreateCalendarFormComponent implements OnInit {
   themeOptions = input<ThemeOption[]>([]);

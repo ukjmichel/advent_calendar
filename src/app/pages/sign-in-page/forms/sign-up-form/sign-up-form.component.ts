@@ -5,11 +5,10 @@ import { SignInPageService } from '../../sign-in-service.service';
 import { ScreenSizeService } from '../../../../services/screen-size.service';
 
 @Component({
-  selector: 'app-sign-up-form',
-  templateUrl: './sign-up-form.component.html',
-  styleUrls: ['./sign-up-form.component.css'],
-  standalone: true,
-  imports: [FormsModule],
+    selector: 'app-sign-up-form',
+    templateUrl: './sign-up-form.component.html',
+    styleUrls: ['./sign-up-form.component.css'],
+    imports: [FormsModule]
 })
 export class SignUpFormComponent {
   formData = {

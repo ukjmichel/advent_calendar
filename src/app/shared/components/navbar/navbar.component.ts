@@ -12,11 +12,10 @@ import { AuthenticationService } from '../../../services/authentication.service'
 import { Router, RouterLink } from '@angular/router';
 
 @Component({
-  selector: 'app-navbar',
-  standalone: true,
-  imports: [RouterLink],
-  templateUrl: './navbar.component.html',
-  styleUrls: ['./navbar.component.css'],
+    selector: 'app-navbar',
+    imports: [RouterLink],
+    templateUrl: './navbar.component.html',
+    styleUrls: ['./navbar.component.css']
 })
 export class NavbarComponent implements OnInit {
   isAuthenticated = signal<boolean>(false);

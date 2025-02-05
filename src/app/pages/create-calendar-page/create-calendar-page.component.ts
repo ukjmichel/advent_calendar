@@ -10,11 +10,10 @@ interface ThemeOption {
 }
 
 @Component({
-  selector: 'app-create-calendar-page',
-  standalone: true,
-  imports: [LayoutComponent, CreateCalendarFormComponent, CalendarSmComponent],
-  templateUrl: './create-calendar-page.component.html',
-  styleUrls: ['./create-calendar-page.component.css'], // Fixed typo
+    selector: 'app-create-calendar-page',
+    imports: [LayoutComponent, CreateCalendarFormComponent, CalendarSmComponent],
+    templateUrl: './create-calendar-page.component.html',
+    styleUrls: ['./create-calendar-page.component.css']
 })
 export class CreateCalendarPageComponent implements OnInit {
   headerIcon = 'assets/icons/plus_gold.svg';
