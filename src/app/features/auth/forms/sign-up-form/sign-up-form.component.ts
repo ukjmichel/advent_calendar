@@ -1,7 +1,7 @@
 import { Component, inject } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { AuthService } from '../../../../core/services/auth.service';
-import { SignInPageService } from '../../sign-in-service.service';
+import { AuthComponentService } from '../../auth.component.service';
 import { ScreenSizeService } from '../../../../services/screen-size.service';
 
 @Component({
@@ -17,7 +17,7 @@ export class SignUpFormComponent {
     password: '',
   };
 
-  signService = inject(SignInPageService);
+  authPageService = inject(AuthComponentService);
   isSmallScreen = inject(ScreenSizeService).isSmallScreen;
 
   private authService = inject(AuthService);
@@ -47,7 +47,7 @@ export class SignUpFormComponent {
    * Toggles between sign-in and sign-up mode.
    */
   toggleAsAccount(): void {
-    this.signService.toggleAsAccount(); // Call the method in the service
-    console.log(this.signService.asAccount());
+    this.authPageService.toggleAsAccount(); // Call the method in the service
+    console.log(this.authPageService.asAccount());
   }
 }

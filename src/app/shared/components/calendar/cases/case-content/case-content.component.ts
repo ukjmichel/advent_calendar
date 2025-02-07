@@ -2,17 +2,17 @@ import { DecimalPipe } from '@angular/common';
 import { Component, inject, OnInit } from '@angular/core';
 import { MAT_DIALOG_DATA, MatDialog } from '@angular/material/dialog';
 import { UploadService } from '../../../../../services/upload.service';
-import { CalendarListService } from '../../../../../services/calendar-list.service';
+import { CalendarListService } from '../../../../../services/calendar.service';
 import { CasesService } from '../../../../../services/cases.service';
 import { DialogService } from '../../../../../services/dialog.service';
 import { Case, CaseResponse } from '../../../../../models/case.models';
 import { ImageService } from '../../../../../services/images.service';
 
 @Component({
-    selector: 'app-case-content',
-    imports: [DecimalPipe],
-    templateUrl: './case-content.component.html',
-    styleUrls: ['./case-content.component.css']
+  selector: 'app-case-content',
+  imports: [DecimalPipe],
+  templateUrl: './case-content.component.html',
+  styleUrls: ['./case-content.component.css'],
 })
 export class CaseContentComponent implements OnInit {
   //

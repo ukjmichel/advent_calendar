@@ -1,0 +1,13 @@
+<app-layout>
+  <section>
+    @if(asAccount() || screenWidth()>1279){
+    <div>
+      <app-sign-in-form />
+    </div>
+    } @if(!asAccount() ||screenWidth()>1279){
+    <div>
+      <app-sign-up-form />
+    </div>
+    }
+  </section>
+</app-layout>

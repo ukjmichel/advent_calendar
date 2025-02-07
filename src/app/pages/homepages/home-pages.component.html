@@ -9,7 +9,7 @@
     <span></span>
   </div>
   <article>
-    <p>Bienvenue</p>
+    <p>Bienvenue </p>
     <p>
       Je suis Michel de la boutique Osez-Noël. Partageons ensemble l’esprit de
       Noël en offrant à vos proches un calendrier de l’avent virtuel.
@@ -31,7 +31,7 @@
     <div class="calendars-container">
       <!-- Générer les calendriers avec des backgrounds différents -->
       @for(background of calendarBackgrounds; track background){
-      <app-calendar-sm [imagePath]="background"/>
+      <app-calendar-sm [imagePath]="background" />
       }
     </div>
   </article>

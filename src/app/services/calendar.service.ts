@@ -1,8 +1,10 @@
 import { inject, Injectable } from '@angular/core';
 import { environment } from '../../environments/environment.development';
-import { HttpClient, HttpHeaders } from '@angular/common/http';
+import { HttpClient } from '@angular/common/http';
 import { firstValueFrom } from 'rxjs';
-import { AuthenticationService } from './authentication.service';
+import { AuthService } from '../core/services/auth.service';
+
+
 
 interface CalendarsResponse {
   message: string;
@@ -48,7 +50,7 @@ export interface Case {
 export class CalendarListService {
   private apiUrl = environment.apiUrl + 'calendar';
   private http = inject(HttpClient);
-  authService = inject(AuthenticationService);
+  authService = inject(AuthService);
 
   async getSenderCalendars(): Promise<any> {
     try {

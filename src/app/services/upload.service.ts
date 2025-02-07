@@ -1,7 +1,7 @@
 import { inject, Injectable } from '@angular/core';
 import { environment } from '../../environments/environment.development';
-import { HttpClient, HttpHeaders } from '@angular/common/http';
-import { AuthenticationService } from './authentication.service';
+import { HttpClient } from '@angular/common/http';
+import { AuthService } from '../core/services/auth.service';
 import { firstValueFrom } from 'rxjs';
 
 @Injectable({
@@ -10,7 +10,7 @@ import { firstValueFrom } from 'rxjs';
 export class UploadService {
   private apiUrl = environment.apiUrl + 'api/upload'; // Base API URL
   private http = inject(HttpClient);
-  authService = inject(AuthenticationService);
+  authService = inject(AuthService);
 
   constructor() {}
 
@@ -25,7 +25,7 @@ export class UploadService {
     formData.append('image', file);
 
     // Set headers for the request
-    const headers = this.authService.getAuthHeaders()
+    const headers = this.authService.getAuthHeaders();
 
     // Convert Observable to Promise and return
     return firstValueFrom(this.http.post(this.apiUrl, formData, { headers }));

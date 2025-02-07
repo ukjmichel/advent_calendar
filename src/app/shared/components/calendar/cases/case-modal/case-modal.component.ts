@@ -3,16 +3,19 @@ import { Component, inject } from '@angular/core';
 import { MAT_DIALOG_DATA, MatDialog } from '@angular/material/dialog';
 import { UploadService } from '../../../../../services/upload.service';
 import { FormsModule } from '@angular/forms';
-import { CalendarListService } from '../../../../../services/calendar-list.service';
+import { CalendarListService } from '../../../../../services/calendar.service';
 import { CasesService } from '../../../../../services/cases.service';
-import { CaseState, UpdateCaseResponse } from '../../../../../models/case.models';
+import {
+  CaseState,
+  UpdateCaseResponse,
+} from '../../../../../models/case.models';
 import { DialogService } from '../../../../../services/dialog.service';
 
 @Component({
-    selector: 'app-case-modal',
-    imports: [DecimalPipe, FormsModule],
-    templateUrl: './case-modal.component.html',
-    styleUrls: ['./case-modal.component.css']
+  selector: 'app-case-modal',
+  imports: [DecimalPipe, FormsModule],
+  templateUrl: './case-modal.component.html',
+  styleUrls: ['./case-modal.component.css'],
 })
 export class CaseModalComponent {
   //

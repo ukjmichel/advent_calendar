@@ -1,6 +1,6 @@
-import { Component, inject } from '@angular/core';
+import { Component, inject, OnInit } from '@angular/core';
 import { RouterOutlet } from '@angular/router';
-import { AuthenticationService } from './services/authentication.service';
+import { AuthService } from './core/services/auth.service';
 import { MatDialogModule } from '@angular/material/dialog';
 import { BrowserModule } from '@angular/platform-browser';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
@@ -12,16 +12,12 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
   styleUrl: './app.component.css',
   standalone: true,
 })
-export class AppComponent {
+export class AppComponent implements OnInit {
   title = 'advent_calendar';
 
-  private authService = inject(AuthenticationService);
+  private authService = inject(AuthService);
 
-  constructor() {
-    // Initialize authentication state
-    const token = localStorage.getItem('auth_token');
-    if (token) {
-      this.authService.isAuthenticatedSignal.set(true);
-    }
+  ngOnInit(): void {
+    this.authService.checkIfLoggedIn();
   }
 }

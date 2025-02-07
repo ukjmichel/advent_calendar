@@ -1,0 +1,49 @@
+<!-- Form -->
+<form (ngSubmit)="onSubmit(signUpForm)" #signUpForm="ngForm">
+  <!-- Title -->
+  <h1>Inscription</h1>
+  <!-- Username Field -->
+  <div>
+    <label for="username">Identifiant</label>
+    <input
+      type="text"
+      id="username"
+      name="username"
+      [(ngModel)]="formData.username"
+      #username="ngModel"
+      required
+    />
+  </div>
+
+  <!-- Email Field -->
+  <div>
+    <label for="email">Email</label>
+    <input
+      type="email"
+      id="email"
+      name="email"
+      [(ngModel)]="formData.email"
+      #email="ngModel"
+      required
+    />
+  </div>
+
+  <!-- Password Field -->
+  <div>
+    <label for="password">Mot de passe</label>
+    <input
+      type="password"
+      id="password"
+      name="password"
+      [(ngModel)]="formData.password"
+      #password="ngModel"
+      required
+    />
+  </div>
+
+  <!-- Submit Button -->
+  <button type="submit" [disabled]="signUpForm.invalid">S'inscrire</button>
+  @if(isSmallScreen()){
+  <p (click)="toggleAsAccount()">Se connecter</p>
+  }
+</form>

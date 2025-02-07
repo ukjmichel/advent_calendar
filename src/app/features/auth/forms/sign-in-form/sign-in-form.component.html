@@ -1,0 +1,36 @@
+<!-- Form -->
+<form (ngSubmit)="onSubmit(loginForm)" #loginForm="ngForm">
+  <!-- Title -->
+  <h1>Connectez-vous</h1>
+  <!-- Email Field -->
+  <div>
+    <label for="email">Email</label>
+    <input
+      type="email"
+      id="email"
+      name="email"
+      [(ngModel)]="formData.email"
+      #email="ngModel"
+      required
+    />
+  </div>
+
+  <!-- Password Field -->
+  <div>
+    <label for="password">Mot de passe</label>
+    <input
+      type="password"
+      id="password"
+      name="password"
+      [(ngModel)]="formData.password"
+      #password="ngModel"
+      required
+    />
+  </div>
+
+  <!-- Submit Button -->
+  <button type="submit" [disabled]="loginForm.invalid">Se connecter</button>
+  @if(isSmallScreen()){
+  <p (click)="toggleAsAccount()">Créer un compte</p>
+  }
+</form>

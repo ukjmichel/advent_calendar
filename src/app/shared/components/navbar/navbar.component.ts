@@ -1,33 +1,22 @@
-import {
-  Component,
-  inject,
-  input,
-  OnChanges,
-  OnInit,
-  signal,
-  Signal,
-  SimpleChanges,
-} from '@angular/core';
-import { AuthenticationService } from '../../../services/authentication.service';
+import { Component, inject, Signal } from '@angular/core';
+import { AuthService } from '../../../core/services/auth.service';
 import { Router, RouterLink } from '@angular/router';
+import { Store } from '@ngrx/store';
+import { selectIsLogged } from '../../../store/auth/auth.selectors';
+import { toSignal } from '@angular/core/rxjs-interop';
 
 @Component({
-    selector: 'app-navbar',
-    imports: [RouterLink],
-    templateUrl: './navbar.component.html',
-    styleUrls: ['./navbar.component.css']
+  selector: 'app-navbar',
+  standalone: true,
+  imports: [RouterLink],
+  templateUrl: './navbar.component.html',
+  styleUrls: ['./navbar.component.css'],
 })
-export class NavbarComponent implements OnInit {
-  isAuthenticated = signal<boolean>(false);
-  isSidebarOpen = false; // Track sidebar state
-
-  authService = inject(AuthenticationService);
+export class NavbarComponent {
+  authService = inject(AuthService);
   router = inject(Router);
-  userId = this.authService.userProfile()?.id;
-
-  ngOnInit(): void {
-    this.isAuthenticated = this.authService.isAuthenticatedSignal;
-  }
+  
+  isSidebarOpen = false; // Track sidebar state
 
   // Toggle the sidebar open/close state
   toggleSidebar(): void {
@@ -41,12 +30,5 @@ export class NavbarComponent implements OnInit {
   logout(): void {
     this.authService.logout();
     this.isSidebarOpen = false; // Ensure the sidebar is closed on logout
-
-    // Navigate to the home page after logging out
-    this.router.navigate(['/']).then((success) => {
-      if (!success) {
-        console.error('Navigation to / failed after logout.');
-      }
-    });
   }
 }

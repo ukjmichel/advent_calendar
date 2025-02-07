@@ -2,17 +2,17 @@ import { Routes } from '@angular/router';
 import { HomePagesComponent } from './pages/homepages/home-pages.component';
 import { CreateCalendarPageComponent } from './pages/create-calendar-page/create-calendar-page.component';
 import { CalendarPageComponent } from './pages/calendar-page/calendar-page.component';
-import { SignInPageComponent } from './pages/sign-in-page/sign-in-page.component';
 import { CalendarsPageComponent } from './pages/calendars-page/calendars-page.component';
-import { AuthGuardService } from './services/auth-guard.service';
-import { ProfilePageComponent } from './pages/profile-page/profile-page.component';
+import { AuthGuardService } from './core/guards/auth-guard.service';
+import { ProfilePageComponent } from './features/user/user.component';
 import { CalendarEditPageComponent } from './pages/calendar-edit-page/calendar-edit-page.component';
-import { isNotEdittingResolver } from './resolvers/is-not-editting.resolver';
-import { isEdittingResolver } from './resolvers/is-editting.resolver';
+import { isNotEdittingResolver } from './core/resolvers/is-not-editting.resolver'
+import { isEdittingResolver } from  './core/resolvers/is-editting.resolver'
+import { AuthComponent } from './features/auth/auth.component';
 
 export const routes: Routes = [
   { path: '', component: HomePagesComponent }, // Public route
-  { path: 'sign', component: SignInPageComponent }, // Public route
+  { path: 'auth', component: AuthComponent }, // Public route
   {
     path: 'calendars',
     component: CalendarsPageComponent,

@@ -1,8 +1,9 @@
 import { Component, inject, input, OnInit, output } from '@angular/core';
 import { FormsModule } from '@angular/forms';
-import { AuthenticationService } from '../../../services/authentication.service';
-import { CalendarListService } from '../../../services/calendar-list.service';
+import { AuthService } from '../../../core/services/auth.service';
+import { CalendarListService } from '../../../services/calendar.service';
 import { Router } from '@angular/router';
+import { ProfileResponse } from '../../../models/auth.models';
 
 interface ThemeOption {
   name: string;
@@ -10,15 +11,15 @@ interface ThemeOption {
 }
 
 @Component({
-    selector: 'app-create-calendar-form',
-    imports: [FormsModule],
-    templateUrl: './create-calendar-form.component.html',
-    styleUrl: './create-calendar-form.component.css'
+  selector: 'app-create-calendar-form',
+  imports: [FormsModule],
+  templateUrl: './create-calendar-form.component.html',
+  styleUrl: './create-calendar-form.component.css',
 })
-export class CreateCalendarFormComponent implements OnInit {
+export class CreateCalendarFormComponent  {
   themeOptions = input<ThemeOption[]>([]);
   themeIsSelected = output<string>();
-  authService = inject(AuthenticationService);
+  authService = inject(AuthService);
   calendarService = inject(CalendarListService);
   router = inject(Router);
   sender: string = '';
@@ -26,10 +27,7 @@ export class CreateCalendarFormComponent implements OnInit {
   message: string = '';
   selectedTheme: string = 'images/alley.png';
 
-  async ngOnInit(): Promise<void> {
-    this.sender = (await this.authService.getProfile()).user.id;
-    console.log(this.sender);
-  }
+
 
   onThemeSelect(event: Event): void {
     const target = event.target as HTMLSelectElement;

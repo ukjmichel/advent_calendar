@@ -1,15 +1,18 @@
-import { Component, OnInit } from '@angular/core';
-import { AuthenticationService } from '../../services/authentication.service';
+import { Component, inject, OnInit } from '@angular/core';
+import { AuthService } from '../../core/services/auth.service';
 import { FormsModule } from '@angular/forms';
 import { LayoutComponent } from '../../core/layout/layout.component';
+import { Store } from '@ngrx/store';
 
 @Component({
-    selector: 'app-profile-page',
-    templateUrl: './profile-page.component.html',
-    styleUrls: ['./profile-page.component.css'],
-    imports: [FormsModule, LayoutComponent]
+  selector: 'app-profile-page',
+  templateUrl: './user.component.html',
+  styleUrls: ['./user.component.css'],
+  imports: [FormsModule, LayoutComponent],
 })
 export class ProfilePageComponent implements OnInit {
+  authService = inject(AuthService);
+
   formData = {
     id: '',
     username: '',
@@ -22,19 +25,10 @@ export class ProfilePageComponent implements OnInit {
   isEditing = false; // Track edit mode
   errorMessage: string | null = null; // Store error messages
 
-  constructor(private authService: AuthenticationService) {}
-
   async ngOnInit(): Promise<void> {
-    try {
-      const profile: any = await this.authService.getProfile(); // Fetch user profile
-      console.log(profile);
-      this.id = profile.user.id;
-      this.username = profile.user.username;
-      this.email = profile.user.email;
-    } catch (error: any) {
-      console.error('Failed to load profile:', error);
-      this.errorMessage = error.message || 'Failed to load profile.';
-    }
+    this.id = this.authService.user().id;
+    this.username = this.authService.user().username;
+    this.email = this.authService.user().email;
   }
 
   enableEdit(): void {

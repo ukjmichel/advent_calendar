@@ -1,7 +1,7 @@
 import { Injectable, inject } from '@angular/core';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { firstValueFrom } from 'rxjs';
-import { AuthenticationService } from './authentication.service';
+import { AuthService } from '../core/services/auth.service';
 import { CaseResponse, CasesResponse, CaseState } from '../models/case.models';
 import { environment } from '../../environments/environment.development';
 
@@ -11,7 +11,7 @@ import { environment } from '../../environments/environment.development';
 export class CasesService {
   private apiUrl = ' http://localhost:3000'; // Use environment config for the base URL
   private http = inject(HttpClient); // Inject HttpClient
-  private authService = inject(AuthenticationService);
+  private authService = inject(AuthService);
 
   isEditting: boolean = false;
 

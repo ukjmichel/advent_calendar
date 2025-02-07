@@ -1,22 +1,20 @@
 import { Component, inject, input, OnInit } from '@angular/core';
 import { CalendarSmComponent } from '../../../shared/components/calendar/calendar-sm/calendar-sm.component';
-import { Calendar } from '../../../models/calendar.models';
-import {} from '../../../services/auth-guard.service';
-import { AuthenticationService } from '../../../services/authentication.service';
+import { Calendar } from '../../../core/models/calendar.models';
+import {} from '../../../core/guards/auth-guard.service';
+import { AuthService } from '../../../core/services/auth.service';
 
 @Component({
-    selector: 'app-calendars-item',
-    imports: [CalendarSmComponent],
-    templateUrl: './calendars-item.component.html',
-    styleUrl: './calendars-item.component.css'
+  selector: 'app-calendars-item',
+  imports: [CalendarSmComponent],
+  templateUrl: './calendars-item.component.html',
+  styleUrl: './calendars-item.component.css',
 })
-export class CalendarsItemComponent implements OnInit {
+export class CalendarsItemComponent  {
   headerIcon = 'assets/icons/chrismas_ball.svg';
   calendar = input<Calendar>();
-  authService = inject(AuthenticationService);
+  authService = inject(AuthService);
   sender: string | null = '';
 
-  async ngOnInit(): Promise<void> {
-    this.sender = await this.authService.getUserName(this.calendar()!.senderId);
-  }
+ 
 }

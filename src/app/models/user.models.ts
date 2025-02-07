@@ -1,13 +1,3 @@
-export interface AuthResponse {
-  token: string;
-  message?: string;
-}
-
-export interface ProfileResponse {
-  message: string;
-  user: User ;
-}
-
 export interface User {
   email: string;
   exp: number;
