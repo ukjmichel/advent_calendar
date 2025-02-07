@@ -25,6 +25,7 @@ import {
   loginSuccessful,
   loginFail,
   logout,
+  login,
 } from '../../store/auth/auth.actions';
 
 @Injectable({
@@ -52,31 +53,8 @@ export class AuthService {
   }) as Signal<string>;
 
   // ✅ Login (returns an Observable and updates store)
-  login(email: string, password: string): Observable<LoginResponse> {
-    return this.http
-      .post<LoginResponse>(`${this.apiUrl}/login`, { email, password })
-      .pipe(
-        map((response) => {
-          this.store.dispatch(
-            loginSuccessful({
-              message: response.message,
-              token: response.token,
-              user: response.user,
-            })
-          );
-          return response;
-        }),
-        catchError((error) => {
-          const errorMessage =
-            error?.error?.message || error?.message || 'Login failed';
-
-          console.error('Login error:', errorMessage); // Log in console
-
-          this.store.dispatch(loginFail({ error: errorMessage }));
-
-          return throwError(() => new Error(errorMessage)); // Throw error for component to catch
-        })
-      );
+  login(email: string, password: string) {
+    this.store.dispatch(login({ email, password }));
   }
 
   // ✅ Logout (dispatch action and clear state)
