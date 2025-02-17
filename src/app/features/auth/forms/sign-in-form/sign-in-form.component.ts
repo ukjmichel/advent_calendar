@@ -1,7 +1,7 @@
-import { Component, effect, inject } from '@angular/core';
+import { Component, inject } from '@angular/core';
 import { FormsModule, NgForm } from '@angular/forms';
 import { AuthComponentService } from '../../auth.component.service';
-import { ScreenSizeService } from '../../../../services/screen-size.service';
+import { ScreenSizeService } from '../../../../core/services/screen-size.service';
 import { Store } from '@ngrx/store';
 
 import { AuthService } from '../../../../core/services/auth.service';
@@ -10,7 +10,6 @@ import {
   selectLoading,
   selectError,
 } from '../../../../store/auth/auth.selectors';
-import { login } from '../../../../store/auth/auth.actions';
 
 @Component({
   selector: 'app-sign-in-form',
@@ -23,6 +22,8 @@ export class SignInFormComponent {
     email: '',
     password: '',
   };
+
+  submitted = false;
 
   authPageService = inject(AuthComponentService);
   isSmallScreen = inject(ScreenSizeService).isSmallScreen;
@@ -37,13 +38,17 @@ export class SignInFormComponent {
    * Handles form submission using NgRx login action.
    */
   onSubmit(form: NgForm): void {
-    if (!form.valid) {
-      alert('Please fill in both email and password fields.');
-      return;
-    }
+    this.submitted = true;
 
-    this.authService.login( this.formData.email, this.formData.password )
-    ;
+    // Submit only if form is valid
+    if (form.valid) {
+      try {
+        this.authService.login(this.formData.email, this.formData.password);
+        form.resetForm(); // Reset form after successful login
+      } catch (error) {
+        console.error(error);
+      }
+    }
   }
 
   /**
@@ -51,5 +56,10 @@ export class SignInFormComponent {
    */
   toggleAsAccount(): void {
     this.authPageService.toggleAsAccount();
+  }
+
+  resetIsSubmited(): void {
+    this.submitted = false;
+    this.authService.clearError();
   }
 }

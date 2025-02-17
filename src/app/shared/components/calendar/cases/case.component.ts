@@ -1,24 +1,13 @@
-import {
-  Component,
-  effect,
-  inject,
-  input,
-  OnChanges,
-  OnInit,
-  output,
-  signal,
-  SimpleChanges,
-} from '@angular/core';
-import { MatDialog } from '@angular/material/dialog';
-import { CaseModalComponent } from './case-modal/case-modal.component';
-import { DialogService } from '../../../../services/dialog.service';
+import { Component, inject, input, output } from '@angular/core';
+
 import { CasesService } from '../../../../services/cases.service';
+import { DialogService } from '../../../../core/services/dialog.service';
 
 @Component({
-    selector: 'app-case',
-    imports: [], // Include necessary imports
-    templateUrl: './case.component.html',
-    styleUrls: ['./case.component.css']
+  selector: 'app-case',
+  imports: [], // Include necessary imports
+  templateUrl: './case.component.html',
+  styleUrls: ['./case.component.css'],
 })
 export class DefaultCaseComponent {
   calendarId = input<string>(''); // Input signal for calendarId
@@ -44,14 +33,12 @@ export class DefaultCaseComponent {
         this.caseService.updateCases(this.calendarId(), this.caseNumber(), {
           state: 'closed',
         });
-
-       
       }
       this.dialogService.openContentCaseDialog(
         this.calendarId(),
         this.caseNumber()
       );
-       this.caseUpdated.emit();
+      this.caseUpdated.emit();
     }
 
     if (this.caseService.isEditting) {

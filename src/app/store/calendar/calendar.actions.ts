@@ -1,5 +1,5 @@
 import { createAction, props } from '@ngrx/store';
-import { Calendar, CasesData } from '../../core/models/calendar.models';
+import { Calendar, CalendarResponse, Case, CasesData } from '../../core/models/calendar.models';
 
 // Load sender Calendars
 export const loadSenderCalendars = createAction('[Calendar] Load Sender Calendars');
@@ -46,7 +46,7 @@ export const loadCases = createAction(
 );
 export const loadCasesSuccess = createAction(
   '[Calendar] Load Cases Success',
-  props<{ cases: CasesData }>()
+  props<{ cases: Case[] }>()
 );
 export const loadCasesFailure = createAction(
   '[Calendar] Load Cases Failure',
@@ -65,7 +65,7 @@ export const createCalendar = createAction(
 );
 export const createCalendarSuccess = createAction(
   '[Calendar] Create Calendar Success',
-  props<{ calendar: Calendar }>()
+  props<CalendarResponse>()
 );
 export const createCalendarFailure = createAction(
   '[Calendar] Create Calendar Failure',

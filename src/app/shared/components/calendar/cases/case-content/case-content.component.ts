@@ -1,12 +1,13 @@
 import { DecimalPipe } from '@angular/common';
 import { Component, inject, OnInit } from '@angular/core';
 import { MAT_DIALOG_DATA, MatDialog } from '@angular/material/dialog';
-import { UploadService } from '../../../../../services/upload.service';
-import { CalendarListService } from '../../../../../services/calendar.service';
+
+
 import { CasesService } from '../../../../../services/cases.service';
-import { DialogService } from '../../../../../services/dialog.service';
-import { Case, CaseResponse } from '../../../../../models/case.models';
-import { ImageService } from '../../../../../services/images.service';
+
+import { Case } from '../../../../../models/case.models';
+import { ImageService } from '../../../../../core/services/images.service';
+import { DialogService } from '../../../../../core/services/dialog.service';
 
 @Component({
   selector: 'app-case-content',

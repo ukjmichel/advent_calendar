@@ -1,8 +1,10 @@
 import { inject, Injectable, signal } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
-import { CaseModalComponent } from '../shared/components/calendar/cases/case-modal/case-modal.component';
+
 import { Router } from '@angular/router';
-import { CaseContentComponent } from '../shared/components/calendar/cases/case-content/case-content.component';
+import { CaseModalComponent } from '../../shared/components/calendar/cases/case-modal/case-modal.component';
+import { CaseContentComponent } from '../../shared/components/calendar/cases/case-content/case-content.component';
+
 
 @Injectable({
   providedIn: 'root',

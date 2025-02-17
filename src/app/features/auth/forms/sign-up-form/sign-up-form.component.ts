@@ -1,8 +1,14 @@
 import { Component, inject } from '@angular/core';
-import { FormsModule } from '@angular/forms';
+import { FormsModule, NgForm } from '@angular/forms';
 import { AuthService } from '../../../../core/services/auth.service';
 import { AuthComponentService } from '../../auth.component.service';
-import { ScreenSizeService } from '../../../../services/screen-size.service';
+import { ScreenSizeService } from '../../../../core/services/screen-size.service';
+import { Store } from '@ngrx/store';
+import { toSignal } from '@angular/core/rxjs-interop';
+import {
+  selectError,
+  selectLoading,
+} from '../../../../store/auth/auth.selectors';
 
 @Component({
   selector: 'app-sign-up-form',
@@ -11,22 +17,27 @@ import { ScreenSizeService } from '../../../../services/screen-size.service';
   imports: [FormsModule],
 })
 export class SignUpFormComponent {
+  authPageService = inject(AuthComponentService);
+  isSmallScreen = inject(ScreenSizeService).isSmallScreen;
+  private authService = inject(AuthService);
+  private store = inject(Store);
+
+  // Use toSignal to get NgRx state updates
+  loading = toSignal(this.store.select(selectLoading));
+  error = toSignal(this.store.select(selectError));
+
   formData = {
     username: '',
     email: '',
     password: '',
   };
 
-  authPageService = inject(AuthComponentService);
-  isSmallScreen = inject(ScreenSizeService).isSmallScreen;
+  submitted = false;
 
-  private authService = inject(AuthService);
+  onSubmit(form: NgForm): void {
+    this.submitted = true;
 
-  /**
-   * Handles form submission using async/await.
-   * Calls the register method in AuthenticationService and shows appropriate feedback.
-   */
-  async onSubmit(form: any): Promise<void> {
+    // Submit only if form is valid
     if (form.valid) {
       try {
         this.authService.register(
@@ -34,12 +45,10 @@ export class SignUpFormComponent {
           this.formData.username,
           this.formData.password
         );
-      } catch (err: any) {
-        console.error('Registration failed:', err);
-        alert(err.message || 'Signup failed');
+        form.resetForm(); // Reset form after successful submission
+      } catch (error) {
+        console.error(error);
       }
-    } else {
-      alert('Please fill all fields.');
     }
   }
 
@@ -47,7 +56,12 @@ export class SignUpFormComponent {
    * Toggles between sign-in and sign-up mode.
    */
   toggleAsAccount(): void {
-    this.authPageService.toggleAsAccount(); // Call the method in the service
+    this.authPageService.toggleAsAccount();
     console.log(this.authPageService.asAccount());
+  }
+
+  resetIsSubmited(): void {
+    this.submitted = false;
+    this.authService.clearError();
   }
 }

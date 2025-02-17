@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { firstValueFrom } from 'rxjs';
-import { environment } from '../../environments/environment.development';
+import { environment } from '../../../environments/environment';
 
 export interface Image {
   name: string;
@@ -18,16 +18,16 @@ export class ImageService {
 
   // Fetch list of image names and paths using Promise<void>
   async getImagesList(): Promise<Image[]> {
-    return firstValueFrom(this.http.get<Image[]>(`${this.apiUrl}api/images`));
+    return firstValueFrom(this.http.get<Image[]>(`${this.apiUrl}images`));
   }
 
   // Fetch a specific image for preview using Promise<void>
   async getImage(imagePath: string | null): Promise<Blob> {
-    const url = `${this.apiUrl}api/image-file?filePath=${imagePath}`;
+    const url = `${this.apiUrl}image-file?filePath=${imagePath}`;
     return firstValueFrom(this.http.get(url, { responseType: 'blob' }));
   }
   async getUploadImage(imagePath: string | null): Promise<Blob> {
-    const url = `${this.apiUrl}api/image-upload?filePath=${imagePath}`;
+    const url = `${this.apiUrl}image-upload?filePath=${imagePath}`;
     return firstValueFrom(this.http.get(url, { responseType: 'blob' }));
   }
 }

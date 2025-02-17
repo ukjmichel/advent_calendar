@@ -16,18 +16,19 @@ interface ThemeOption {
   templateUrl: './create-calendar-form.component.html',
   styleUrl: './create-calendar-form.component.css',
 })
-export class CreateCalendarFormComponent  {
+export class CreateCalendarFormComponent {
   themeOptions = input<ThemeOption[]>([]);
-  themeIsSelected = output<string>();
   authService = inject(AuthService);
   calendarService = inject(CalendarListService);
   router = inject(Router);
-  sender: string = '';
+  
+
+
+  themeIsSelected = output<string>();
+  sender=this.authService.user().id
   email: string = '';
   message: string = '';
   selectedTheme: string = 'images/alley.png';
-
-
 
   onThemeSelect(event: Event): void {
     const target = event.target as HTMLSelectElement;
@@ -36,6 +37,18 @@ export class CreateCalendarFormComponent  {
   }
 
   OnSubmit() {
+    // Log all fields for debugging
+    console.log('Sender:', this.sender);
+    console.log('Email:', this.email);
+    console.log('Message:', this.message);
+    console.log('Selected Theme:', this.selectedTheme);
+
+    // Validate that all fields are filled
+    if (!this.sender || !this.email || !this.message || !this.selectedTheme) {
+      console.error('All fields are required');
+      return;
+    }
+
     try {
       this.calendarService.createNewCalendars(
         this.sender,
@@ -45,7 +58,7 @@ export class CreateCalendarFormComponent  {
       );
       this.router.navigate(['calendars']);
     } catch (error) {
-      console.error(error);
+      console.error('Error during submission:', error);
     }
   }
 

@@ -6,8 +6,8 @@ import { CalendarsPageComponent } from './pages/calendars-page/calendars-page.co
 import { AuthGuardService } from './core/guards/auth-guard.service';
 import { ProfilePageComponent } from './features/user/user.component';
 import { CalendarEditPageComponent } from './pages/calendar-edit-page/calendar-edit-page.component';
-import { isNotEdittingResolver } from './core/resolvers/is-not-editting.resolver'
-import { isEdittingResolver } from  './core/resolvers/is-editting.resolver'
+import { isNotEdittingResolver } from './core/resolvers/is-not-editting.resolver';
+import { isEdittingResolver } from './core/resolvers/is-editting.resolver';
 import { AuthComponent } from './features/auth/auth.component';
 
 export const routes: Routes = [
@@ -29,6 +29,7 @@ export const routes: Routes = [
     canActivate: [AuthGuardService], // Protected route with dynamic param
     resolve: {
       isEditing: isNotEdittingResolver, // Attach the resolver
+   
     },
   },
   {

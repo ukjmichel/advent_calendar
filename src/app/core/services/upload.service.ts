@@ -1,14 +1,16 @@
 import { inject, Injectable } from '@angular/core';
-import { environment } from '../../environments/environment.development';
+
 import { HttpClient } from '@angular/common/http';
-import { AuthService } from '../core/services/auth.service';
+
 import { firstValueFrom } from 'rxjs';
+import { AuthService } from './auth.service';
+import { environment } from '../../../environments/environment';
 
 @Injectable({
   providedIn: 'root',
 })
 export class UploadService {
-  private apiUrl = environment.apiUrl + 'api/upload'; // Base API URL
+  private apiUrl = environment.apiUrl + 'upload'; // Base API URL
   private http = inject(HttpClient);
   authService = inject(AuthService);
 

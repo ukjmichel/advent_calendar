@@ -3,7 +3,7 @@ import { Router } from '@angular/router';
 import { AuthService } from '../../../../core/services/auth.service';
 import { FormsModule } from '@angular/forms';
 import { SignInPageService } from '../../sign-in-service.service';
-import { ScreenSizeService } from '../../../../services/screen-size.service';
+import { ScreenSizeService } from '../../../../core/services/screen-size.service';
 
 @Component({
   selector: 'app-sign-in-form',

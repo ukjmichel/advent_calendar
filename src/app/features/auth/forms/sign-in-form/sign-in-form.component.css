@@ -6,10 +6,10 @@
 
 /* Styles pour le titre */
 h1 {
-  font-size: 36px;
+  font-size: 32px;
 }
 p {
-  font-size: 20px;
+  font-size: 16px;
 }
 
 /* Styles pour le formulaire */
@@ -17,12 +17,11 @@ form {
   display: flex;
   flex-direction: column;
   align-items: center;
-  width: 260px;
-  height: 450px;
-  font-size: 36px;
+  width: 320px;
+  height: 500px;
+  font-size: 24px;
   gap: 20px;
   background-color: rgba(0, 0, 0, 0.6);
-  padding: 40px;
   border-radius: 20px;
   color: white;
 }
@@ -31,13 +30,14 @@ form {
 form div {
   display: flex;
   flex-direction: column;
+  height: 80px;
+  width: 80%;
 }
 
 /* Styles pour les champs de saisie */
 form input {
   font-size: 28px;
   border-radius: 2px;
-  width: 300px;
 }
 
 /* Styles pour le bouton */
@@ -51,7 +51,11 @@ button {
 }
 
 button,
-p {
+.switch {
   position: relative;
-  top: 90px;
+  top: 120px;
+}
+
+button:hover {
+  background-color: var(--secondary-red);
 }

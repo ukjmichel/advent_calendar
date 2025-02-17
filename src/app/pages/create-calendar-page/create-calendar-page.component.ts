@@ -1,7 +1,7 @@
 import { Component, inject, OnInit, signal } from '@angular/core';
 import { LayoutComponent } from '../../core/layout/layout.component';
 import { CreateCalendarFormComponent } from './create-calendar-form/create-calendar-form.component';
-import { ImageService } from '../../services/images.service';
+import { ImageService } from '../../core/services/images.service';
 import { CalendarSmComponent } from '../../shared/components/calendar/calendar-sm/calendar-sm.component';
 
 interface ThemeOption {
@@ -10,10 +10,10 @@ interface ThemeOption {
 }
 
 @Component({
-    selector: 'app-create-calendar-page',
-    imports: [LayoutComponent, CreateCalendarFormComponent, CalendarSmComponent],
-    templateUrl: './create-calendar-page.component.html',
-    styleUrls: ['./create-calendar-page.component.css']
+  selector: 'app-create-calendar-page',
+  imports: [LayoutComponent, CreateCalendarFormComponent, CalendarSmComponent],
+  templateUrl: './create-calendar-page.component.html',
+  styleUrls: ['./create-calendar-page.component.css'],
 })
 export class CreateCalendarPageComponent implements OnInit {
   headerIcon = 'assets/icons/plus_gold.svg';
@@ -21,7 +21,6 @@ export class CreateCalendarPageComponent implements OnInit {
   themeOptions: ThemeOption[] = [];
   imagesService = inject(ImageService);
   selectedTheme = signal<string>('images/alley.png');
-
 
   async getThemesOptions(): Promise<ThemeOption[]> {
     try {
@@ -40,10 +39,7 @@ export class CreateCalendarPageComponent implements OnInit {
     } else {
       console.warn('No themes available');
     }
-    
   }
-
- 
 
   updateSelectedTheme(theme: string) {
     this.selectedTheme.set(theme);

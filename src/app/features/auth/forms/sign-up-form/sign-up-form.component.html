@@ -11,8 +11,17 @@
       name="username"
       [(ngModel)]="formData.username"
       #username="ngModel"
+      minlength="4"
       required
+      (click)="resetIsSubmited()"
     />
+    @if(submitted && error()) {
+    <p>{{ error() }}</p>
+    } @else if (submitted && username.errors?.['required']) {
+    <p>⚠️ Identifiant requis.</p>
+    } @else if (submitted && username.errors?.['minlength']) {
+    <p>⚠️ 6 caractères minimum</p>
+    }
   </div>
 
   <!-- Email Field -->
@@ -24,8 +33,17 @@
       name="email"
       [(ngModel)]="formData.email"
       #email="ngModel"
+      email
       required
+      (click)="resetIsSubmited()"
     />
+    @if(submitted && error()) {
+    <p>{{ error() }}</p>
+    }@else if (submitted && email.errors?.['required'] && loading() === false) {
+    <p>⚠️ Email requis.</p>
+    } @else if (submitted && email.errors?.['email']) {
+    <p>⚠️ Veuillez entrer un email valide.</p>
+    }
   </div>
 
   <!-- Password Field -->
@@ -37,13 +55,24 @@
       name="password"
       [(ngModel)]="formData.password"
       #password="ngModel"
+      minlength="6"
       required
+      (click)="resetIsSubmited()"
     />
+    @if(submitted && error()) {
+    <p>{{ error() }}</p>
+    } @else if (submitted && password.errors?.['required'] && loading() ===
+    false) {
+    <p>⚠️ Mot de passe requis.</p>
+    } @else if (submitted && password.errors?.['minlength']) {
+    <p>⚠️ 6 caractères minimum</p>
+    }
   </div>
 
   <!-- Submit Button -->
-  <button type="submit" [disabled]="signUpForm.invalid">S'inscrire</button>
+  <button type="submit">S'inscrire</button>
+  <!-- Toggle button -->
   @if(isSmallScreen()){
-  <p (click)="toggleAsAccount()">Se connecter</p>
+  <p class="switch" (click)="toggleAsAccount()">Se connecter</p>
   }
 </form>

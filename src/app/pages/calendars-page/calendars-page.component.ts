@@ -9,7 +9,7 @@ import {
 } from '@angular/core';
 import { LayoutComponent } from '../../core/layout/layout.component';
 import { RouterLink } from '@angular/router';
-import { ScreenSizeService } from '../../services/screen-size.service';
+import { ScreenSizeService } from '../../core/services/screen-size.service';
 import { Calendar } from '../../core/models/calendar.models';
 import { CalendarsItemComponent } from './calendars-item/calendars-item.component';
 import { CalendarService } from '../../core/services/calendar.service';
@@ -52,8 +52,6 @@ export class CalendarsPageComponent implements OnInit {
     this.calendarService.loadReceivedCalendars();
     this.calendarService.loadSenderCalendars();
   }
-
-
 
   @HostListener('window:resize', ['$event'])
   onResize(): void {

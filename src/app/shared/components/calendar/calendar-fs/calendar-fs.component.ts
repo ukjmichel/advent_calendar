@@ -10,12 +10,11 @@ import {
   effect,
 } from '@angular/core';
 import { DefaultCaseComponent } from '../cases/case.component';
-import { ImageService } from '../../../../services/images.service';
+import { ImageService } from '../../../../core/services/images.service';
 import { CalendarListService } from '../../../../services/calendar.service';
 
-import { CasesData } from '../../../../models/case.models';
-import { DialogService } from '../../../../services/dialog.service';
-import { Calendar } from '../../../../core/models/calendar.models';
+import { CalendarService } from '../../../../core/services/calendar.service';
+import { DialogService } from '../../../../core/services/dialog.service';
 
 @Component({
   selector: 'app-calendar-fs',
@@ -25,42 +24,49 @@ import { Calendar } from '../../../../core/models/calendar.models';
 })
 export class CalendarFsComponent implements OnInit {
   calendarId = input<string>('');
-  calendarDetail: Calendar | null = null;
+  //
+  calendarService = inject(CalendarService);
   imageService = inject(ImageService);
-  calendarService = inject(CalendarListService);
+  calendarCaseService = inject(CalendarListService);
   dialogService = inject(DialogService);
-  imagePath: string | null = '';
+  //
+  calendar = this.calendarService.selectedCalendar;
   background: string | null = null; // Update type to string | null
-  cases = signal<CasesData | null>(null);
+
+  cases = this.calendarService.casesOfSelectedCalendar;
 
   constructor() {
+    this.calendarService.loadCalendar(this.calendarId());
     // Listen to the signal and trigger the function
     effect(() => {
       if (this.dialogService.refreshSignal()) {
         this.updateCases(); // Call the function when the signal changes
       }
     });
+    effect(() => {
+      if (this.calendar()) {
+        //console.log('[CalendarFsComponent] Calendar Loaded:', this.calendar());
+        this.updateCases();
+      }
+      if (this.calendar()?.image_path) {
+        this.getBackground(this.calendar()?.image_path);
+      }
+    });
   }
 
-  async ngOnInit(): Promise<void> {
-    this.initCases();
+  ngOnInit(): void {
+    this.calendarService.loadCalendar(this.calendarId());
   }
 
-  async getBackground(): Promise<string | null> {
-    const blob = await this.imageService.getImage(this.imagePath);
-    return blob ? URL.createObjectURL(blob) : null; // Convert Blob to a URL string
+  async getBackground(path: string | null | undefined) {
+    if (path) {
+      const blob = await this.imageService.getImage(path);
+      this.background = blob ? URL.createObjectURL(blob) : null; // Convert Blob to a URL string
+    }
   }
 
-  async initCases() {
-    this.updateCases();
-    this.calendarDetail = await this.calendarService.getCalendars(
-      this.calendarId()
-    );
-    this.imagePath = this.calendarDetail.image_path;
-    this.background = await this.getBackground();
-  }
-  async updateCases() {
-    this.cases.set(await this.calendarService.getCases(this.calendarId()));
+  updateCases() {
+    this.calendarService.loadCases(this.calendarId());
     this.dialogService.unsetIsRefresh();
   }
 }

@@ -8,16 +8,16 @@ import {
   OnInit,
   SimpleChanges,
 } from '@angular/core';
-import { ImageService } from '../../../../services/images.service';
+import { ImageService } from '../../../../core/services/images.service';
 
 @Component({
-    selector: 'app-calendar-sm',
-    imports: [CommonModule],
-    templateUrl: './calendar-sm.component.html',
-    styleUrls: ['./calendar-sm.component.css']
+  selector: 'app-calendar-sm',
+  imports: [CommonModule],
+  templateUrl: './calendar-sm.component.html',
+  styleUrls: ['./calendar-sm.component.css'],
 })
 export class CalendarSmComponent implements OnInit, OnChanges {
-  imagePath = input<string|null>('');
+  imagePath = input<string | null>('');
   cases = Array.from({ length: 24 }, (_, i) => i + 1);
   imageService = inject(ImageService);
   background: string | null = null; // Update type to string | null

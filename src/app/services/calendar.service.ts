@@ -1,10 +1,8 @@
 import { inject, Injectable } from '@angular/core';
-import { environment } from '../../environments/environment.development';
+import { environment } from '../../environments/environment';
 import { HttpClient } from '@angular/common/http';
 import { firstValueFrom } from 'rxjs';
 import { AuthService } from '../core/services/auth.service';
-
-
 
 interface CalendarsResponse {
   message: string;
@@ -51,68 +49,6 @@ export class CalendarListService {
   private apiUrl = environment.apiUrl + 'calendar';
   private http = inject(HttpClient);
   authService = inject(AuthService);
-
-  async getSenderCalendars(): Promise<any> {
-    try {
-      const headers = this.authService.getAuthHeaders();
-      const response = await firstValueFrom(
-        this.http.get<CalendarsResponse>(`${this.apiUrl}/sended`, {
-          headers,
-        })
-      );
-      return response.data;
-    } catch (error: any) {
-      if (error.status === 404) {
-        console.log('no calendar sended');
-      } else {
-        throw new Error(
-          'An error occurred while retrieving calendars for the specified sender.'
-        );
-      }
-    }
-  }
-
-  async getReceiverCalendars(): Promise<Calendar[]> {
-    try {
-      const headers = this.authService.getAuthHeaders();
-      const url = `${this.apiUrl}/received`;
-      const response = await firstValueFrom(
-        this.http.get<CalendarsResponse>(url, { headers })
-      );
-      return response?.data || []; // Return an empty array if data is undefined
-    } catch (error: any) {
-      if (error.status === 404) {
-        console.log('No calendar found');
-        return []; // Return an empty array if no calendars are found
-      } else {
-        throw new Error(
-          `An error occurred while retrieving calendars : ${
-            error.message || 'Unknown error'
-          }`
-        );
-      }
-    }
-  }
-
-  async getCalendars(calendarId: string) {
-    console.log(calendarId);
-    const headers = this.authService.getAuthHeaders();
-    const url = [this.apiUrl, calendarId].join('/');
-    const response = await firstValueFrom(
-      this.http.get<CalendarResponse>(url, { headers })
-    );
-    return response.data;
-  }
-
-  async getCases(calendarId: string): Promise<CaseResponse['data']> {
-    const headers = this.authService.getAuthHeaders();
-    const url = [this.apiUrl, calendarId, 'cases'].join('/');
-
-    const response = await firstValueFrom(
-      this.http.get<CaseResponse>(url, { headers })
-    );
-    return response.data;
-  }
 
   async createNewCalendars(
     senderId: string = '',

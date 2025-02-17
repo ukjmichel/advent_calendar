@@ -14,6 +14,12 @@ export interface Calendar {
   created_at: string; // ISO date string
   image_path: string | null; // Nullable
 }
+//
+
+export interface CasesResponse {
+  message: string;
+  data: CasesData;
+}
 
 export interface CasesData {
   _id: string;
@@ -33,3 +39,9 @@ export interface Case {
 }
 
 export type CaseState = 'closed' | 'opened' | 'empty';
+
+
+
+
+
+

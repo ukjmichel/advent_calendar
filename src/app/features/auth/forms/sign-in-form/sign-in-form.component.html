@@ -1,7 +1,8 @@
 <!-- Form -->
-<form (ngSubmit)="onSubmit(loginForm)" #loginForm="ngForm">
+<form (ngSubmit)="onSubmit(loginForm)" #loginForm="ngForm" novalidate>
   <!-- Title -->
   <h1>Connectez-vous</h1>
+
   <!-- Email Field -->
   <div>
     <label for="email">Email</label>
@@ -12,7 +13,18 @@
       [(ngModel)]="formData.email"
       #email="ngModel"
       required
+      email
+      (click)="resetIsSubmited()"
     />
+
+    <!-- Error messages (only show after submit) -->
+    @if (submitted && email.errors?.['required'] && loading() === false) {
+    <p>⚠️ Email requis.</p>
+    } @if (submitted && email.errors?.['email'] ) {
+    <p>⚠️ Veuillez entrer un email valide.</p>
+    } @if(submitted && error()) {
+    <p>{{ error() }}</p>
+    }
   </div>
 
   <!-- Password Field -->
@@ -25,12 +37,22 @@
       [(ngModel)]="formData.password"
       #password="ngModel"
       required
+      (click)="resetIsSubmited()"
     />
+
+    <!-- Error messages (only show after submit) -->
+    @if (submitted && password.errors?.['required'] && loading() === false) {
+    <p>⚠️ Mot de passe requis.</p>
+    } @if(submitted && error()) {
+    <p>{{ error() }}</p>
+    }
   </div>
 
   <!-- Submit Button -->
-  <button type="submit" [disabled]="loginForm.invalid">Se connecter</button>
-  @if(isSmallScreen()){
-  <p (click)="toggleAsAccount()">Créer un compte</p>
+  <button type="submit">Se connecter</button>
+
+  <!-- Toggle button -->
+  @if (isSmallScreen()) {
+  <p class="switch" (click)="toggleAsAccount()">Créer un compte</p>
   }
 </form>

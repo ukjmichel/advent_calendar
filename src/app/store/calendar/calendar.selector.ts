@@ -1,5 +1,6 @@
 import { createSelector, createFeatureSelector } from '@ngrx/store';
 import { CalendarState } from './calendar.reducer';
+import { state } from '@angular/animations';
 
 // Feature selector for the 'calendar' state
 export const selectCalendarState =
@@ -27,4 +28,14 @@ export const selectCalendarsLoading = createSelector(
 export const selectCalendarsError = createSelector(
   selectCalendarState,
   (state) => state.error
+);
+
+export const selectSelectedCalendar = createSelector(
+  selectCalendarState,
+  (state) => state.selectedCalendar
+);
+
+export const selectCasesOfSelectedCalendar = createSelector(
+  selectCalendarState,
+  (state) => state.casesOfSelectedCalendar
 );
